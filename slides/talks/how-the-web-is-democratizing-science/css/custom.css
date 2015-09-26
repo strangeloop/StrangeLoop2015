@@ -1,0 +1,15 @@
+pro
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.reveal section img {
+  background: none;
+  box-shadow: none;
+  border:none;
+}
+
+.highlight {
+  background: #FFE496;
+}

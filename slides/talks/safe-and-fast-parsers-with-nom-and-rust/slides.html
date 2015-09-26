@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+  <meta name="author" content="Geoffroy Couprie" />
+  <title>Strangeloop 2015: Safe and fast parsers with nom and Rust</title>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+<!--
+<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+<link href='http://fonts.googleapis.com/css?family=Merriweather+Sans:400,300' rel='stylesheet'>
+-->
+<style>
+@font-face {
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 40
+    src: local('Oswald Regular'), local('Oswald-Regular'), url(http://localhost:8000/Oswald.woff) format('woff');
+}
+@font-face {
+  font-family: 'Merriweather Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Merriweather Sans Light'), local('MerriweatherSans-Light'), url(http://localhost:8000/MerryWeatherSansLight.woff) format('woff');
+}
+@font-face {
+  font-family: 'Merriweather Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Merriweather Sans Regular'), local('MerriweatherSans-Regular'), url(http://localhost:8000/MerryWeatherSansRegular.woff) format('woff');
+}
+  html { background-color: white; }
+  a { color: #FF0044; } a:hover {text-decoration: underline;}
+  footer { position: absolute; bottom: 20px; right: 100px; }
+  strong,code {color: #FF0044; } 
+  pre>code, code.sourceCode { color: #000; }
+  .sourceCode, pre.text {
+    background-color: #fff;
+    margin-left:  auto;
+    margin-right: auto;
+    width: 70%;
+  }
+  table {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  th, td {
+    border: 1px solid black;
+    padding: 5px;
+  }
+  body {
+      font-family: 'Merriweather Sans', arial, sans-serif;
+      background-color: white;
+      color: black;
+      font-size: 30px;
+      background: white;
+  }
+
+
+  /* Transition effect */
+  section {
+      -moz-transition: left 400ms ease-in 0s;
+      -webkit-transition: left 400ms ease-in 0s;
+      -ms-transition: left 400ms ease-in 0s;
+      transition: left 400ms ease-in 0s;
+      background: white;
+  }
+  section { left: -150%; }
+  section[aria-selected] { left: 0; }
+  section[aria-selected] ~ section { left: +150% }
+
+  .chapter { background-color: black;}
+  .chapter h1 {line-height: 600px; margin: 0; text-align: center; display: block}
+
+  h1,h2,h3,h4,h5,h6 {
+      font-family: 'Oswald', arial, serif;
+      margin: 20px 100px 0 100px;
+  }
+
+  h1 {
+      color: #EF0044;
+      font-size: 50px;
+      text-shadow: 0px -1px 0px #fff;
+      text-align: center;
+      display: block;
+      /*position: absolute;
+      top: 10%;*/
+  }
+  h2 {
+      color: #AE353B;
+      font-size: 40px;
+      text-align: center;
+  }
+
+  h3,h4,h5,h6 {
+      color: #FA353B;
+      margin-top: 10px;
+      font-size: 30px;
+      text-align: left;
+  }
+  h1.title { color: #000000; }
+  h2.author {
+    color: #000066;
+    width: 150px;
+    display:block;
+  }
+  .date {color: #000000; }
+  ul {
+      margin-top: 70px;
+      font-size: 30px;
+      text-align: left;
+      border-left: 4px solid black;
+      padding-left: 40px;
+      min-width: 310px;
+      margin-left: 30px;
+      display: inline-block;
+  }
+  q, p {
+      margin: 50px auto 0 auto;
+      width: 500px;
+  }
+  q:after {content: ""}
+  q:before {content: ""}
+  q {
+      display: block;
+      margin-top: 140px;
+  }
+  video {
+      position: absolute;
+      top: 210px;
+      width: 260px;
+      left: 445px;
+      box-shadow: 0 0 10px black;
+  }
+  /*
+  img {
+    max-height: 500px;
+  }
+  img.large  {
+    height: 40%;
+    position: absolute;
+    bottom: 20px;
+    text-align: center;
+  }
+
+  img.simple {
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  */
+  #arrow {
+      position: absolute;
+      top: 165px;
+      left: 460px;
+      font-size: 100px;
+      color: white;
+
+  }
+  li {list-style-type: none; margin-bottom: 20px}
+
+  pre {
+      font-size: 18px;
+      margin: 2em;
+  }
+</style>
+</head>
+<body>
+<section>
+  <h1 class="title">Strangeloop 2015: Safe and fast parsers with nom and Rust</h1>
+  <footer>
+  <h2 class="author">Geoffroy Couprie</h2>
+  <h2 class="twitter">@gcouprie</h2>
+  <h3 class="date">2015/09/25</h3>
+  </footer>
+</section>
+<section id="go-st-louis" class="slide level1">
+<h1>Go St Louis</h1>
+<p><img src="img/jazz.jpg" class="centered" /></p>
+</section>
+<section id="about-me" class="slide level1">
+<h1>About me</h1>
+<ul>
+<li>Security and QA at Clever Cloud</li>
+<li>Freelance consultant, security and architecture</li>
+<li><span class="twitter"><span class="citation" data-cites="gcouprie">@gcouprie</span></span></li>
+</ul>
+<p><img src="img/logo-clever.png" style="width:300px" /></p>
+<p><details> </details></p>
+</section>
+<section id="what-is-clever-cloud" class="slide level1">
+<h1>What is Clever Cloud ?</h1>
+<p><img src="img/logo-never.png" style="width: 400px"/></p>
+<p><details> Platform as a service hosting, git push, databases, VM everywhere, zero downtime redeployments</p>
+<p>does not go down when Amazon's North Virginia DC goes down </details></p>
+</section>
+<section id="why-nom" class="slide level1">
+<h1>Why nom ?</h1>
+<p><img src="img/cookie_monster_waiting.gif" class="centered" /></p>
+</section>
+<section id="videolan" class="slide level1">
+<h1>VideoLAN</h1>
+<p><img src="img/largeVLC.png" class="centered" /></p>
+<p><details> what I do at VideoLAN</p>
+<p>VLC handles most audio, video and streaming formats </details></p>
+</section>
+<section id="vlc-media-player-in-2015" class="slide level1">
+<h1>VLC media player, in 2015</h1>
+<ul>
+<li>buffer overflow for Dirac streams (CVE-2014-9629)</li>
+<li>invalid memory access in RTP (CVE-2014-9630)</li>
+<li>buffer overflows in MP4 demuxer (CVE-2014-9626, CVE-2014-9627, CVE-2014-9628)</li>
+</ul>
+<p><details> handling multiple formats is dangerous. MP4 has a lot of flaws, but not the MKV demuxer</p>
+<p>fuzzing </details></p>
+</section>
+<section id="origin-of-vulnerabilities" class="slide level1">
+<h1>Origin of vulnerabilities</h1>
+<ul>
+<li>C</li>
+<li>manual parsing</li>
+<li>weird formats</li>
+</ul>
+<p><details> a good developer would avoid those issues But how can we fight the urge to write vulnerable code? </details></p>
+</section>
+<section id="we-need-a-practical-solution" class="slide level1">
+<h1>We need a practical solution</h1>
+<ul>
+<li>make mistakes hard</li>
+<li>memory safe</li>
+<li>embeddable in C (no runtime or GC)</li>
+<li>efficient, streaming</li>
+</ul>
+<p><details> if not for the &quot;embeddable&quot;, I would write some haskell </details></p>
+</section>
+<section id="langsec" class="slide level1">
+<h1>Langsec</h1>
+<p><img src="img/weirdmachines.jpg" class="centered" /></p>
+<p><details> treating all valid or expected inputs as a formal language</p>
+<p>and the respective input-handling routines as a recognizer for that language </details></p>
+</section>
+<section id="modeling-vulnerabilities" class="slide level1">
+<h1>Modeling vulnerabilities</h1>
+<p><img src="img/virtualmachine.png" class="centered" /></p>
+<p><details> The program is a machine data is its bytecode an exploit demonstrates that the input language is Turing complete</p>
+<p>ex: ROP gadgets</p>
+<p>weird machine </details></p>
+</section>
+<section id="describing-the-input-language" class="slide level1">
+<h1>describing the input language</h1>
+<p><img src="img/chomsky.png" class="centered" /></p>
+<p><details> context-free or regular</p>
+<p>the grammar can be context-free, but the behaviour (state machine) heavily context sensitive </details></p>
+</section>
+<section id="postels-law" class="slide level1">
+<h1>Postel's law</h1>
+<p><em>Be conservative in what you do, be liberal in what you accept from others</em></p>
+<p><details> worked great to ensure large adoption of some formats</p>
+<p>yet... </details></p>
+</section>
+<section id="postels-law-should-be-avoided" class="slide level1">
+<h1>Postel's law should be avoided</h1>
+<ul>
+<li>Be definite about what you accept</li>
+<li>Treat valid or expected inputs as formal languages, generate their recognizer from their grammar</li>
+</ul>
+<p><details> postel's law is not robustness, it's fragility and complexity </details></p>
+</section>
+<section id="finding-the-ambiguities" class="slide level1">
+<h1>Finding the ambiguities</h1>
+<ul>
+<li>specification =/= implementation</li>
+<li>implementation 1 =/= implementation 2</li>
+</ul>
+<p><details> whenever there's an ambiguity, developers will make choices</p>
+<p>those choices may be wrong or not, but they're ambiguous </details></p>
+</section>
+<section id="matching-implementations" class="slide level1">
+<h1>Matching implementations</h1>
+<p><img src="img/state-machines.png" class="centered" style="width:90%" /></p>
+</section>
+<section id="where-do-errors-come-from" class="slide level1">
+<h1>where do errors come from?</h1>
+</section>
+<section id="increasing-state-space" class="slide level1">
+<h1>Increasing state space</h1>
+<ul>
+<li>optional values</li>
+<li>multiple versions</li>
+<li>version or feature negotiation</li>
+<li>evolving schema</li>
+<li>dynamic schema</li>
+</ul>
+<p><details> slide for TLS example </details></p>
+</section>
+<section id="format-gotchas" class="slide level1">
+<h1>Format gotchas</h1>
+<ul>
+<li>data language == metadata language</li>
+<li>unspecified max size</li>
+<li>Length-value</li>
+<li>encoding (UTF-8, etc)</li>
+</ul>
+<p><details> example: HTTP, large headers or cookies</p>
+<p>length-value is context sensitive</p>
+<p>Length-value is annoying, but essential for partial parsing</p>
+<p>token delimited means you could buffer forever</p>
+<p>Fixed size would be cool -&gt; regular grammar </details></p>
+</section>
+<section id="real-world-formats" class="slide level1">
+<h1>Real world formats</h1>
+<ul>
+<li>context sensitive</li>
+<li>mixed encoding, escaping</li>
+<li>unaligned code points of varying bit length</li>
+<li>confusing length indications, length calculations</li>
+<li>go back and forth in the data</li>
+</ul>
+<p><details> must support all those use cases anyway</p>
+<p>formats already existing </details></p>
+</section>
+<section id="fixing-manual-parsing" class="slide level1">
+<h1>Fixing manual parsing</h1>
+<p><details> - files and network</p>
+<ul>
+<li><p>parsing manually VS generated code</p></li>
+<li><p>parser combinators: middle ground </details></p></li>
+</ul>
+</section>
+<section id="rust" class="slide level1">
+<h1>Rust</h1>
+<h2 id="v1.0-released-on-may-15th">v1.0 released on May 15th</h2>
+<p><img src="img/rust-logo-512x512.png" /></p>
+<p><details> no null pointers, efficient memory management</p>
+<p>emphasis on safety, zero cost abstractions</p>
+<p>fix bugclasses, not bugs </details></p>
+</section>
+<section id="the-promise-of-rust" class="slide level1">
+<h1>The promise of Rust</h1>
+<ul>
+<li>memory safe</li>
+<li>borrowing and ownership</li>
+<li>type safety</li>
+<li>immutable by default</li>
+<li>talks easily to C</li>
+</ul>
+<p><details> also: traits, generics, pattern matching</p>
+<p>No garbage collection </details></p>
+</section>
+<section id="slices" class="slide level1">
+<h1>Slices</h1>
+<div class="sourceCode"><pre class="sourceCode rust"><code class="sourceCode rust"><span class="kw">pub</span> <span class="kw">struct</span> Slice&lt;T&gt; {
+  <span class="kw">pub</span> data: *<span class="kw">const</span> T,
+  <span class="kw">pub</span> len: <span class="dt">usize</span>,
+}
+
+<span class="kw">let</span> vec = <span class="pp">vec!</span>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>];
+<span class="kw">let</span> int_slice = &amp;vec[<span class="dv">1.</span>.];</code></pre></div>
+<p><details> slice = pointer + length since we have slices and lifetime, we could make zero copy parsers </details></p>
+</section>
+<section id="not-enough-to-write-safe-code" class="slide level1">
+<h1>Not enough to write safe code</h1>
+<p><details> Unsafe code can be written in any language </details></p>
+</section>
+<section id="nom" class="slide level1">
+<h1>Nom</h1>
+<p><img src="img/cookie-monster.gif" /></p>
+<p><details> with lifetimes and slices,</p>
+<p>a bet that we can make zero copy parsers in Rust </details></p>
+</section>
+<section id="how-nom-looks-like" class="slide level1">
+<h1>How nom looks like</h1>
+<div class="sourceCode"><pre class="sourceCode rust"><code class="sourceCode rust"><span class="pp">named!</span>(parens&lt;<span class="dt">i64</span>&gt;, <span class="pp">delimited!</span>(
+    <span class="pp">delimited!</span>(
+      <span class="pp">opt!</span>(multispace),
+      <span class="dt">char</span>!(<span class="st">&quot;(&quot;</span>),
+      <span class="pp">opt!</span>(multispace)
+    ),
+    expr,
+    <span class="pp">delimited!</span>(
+      <span class="pp">opt!</span>(multispace),
+      <span class="dt">char</span>!(<span class="st">&quot;)&quot;</span>),
+      <span class="pp">opt!</span>(multispace)
+    )
+  )
+);</code></pre></div>
+<p><details> composition of functions</details></p>
+</section>
+<section id="basic-types" class="slide level1">
+<h1>Basic types</h1>
+<div class="sourceCode"><pre class="sourceCode rust"><code class="sourceCode rust"><span class="kw">pub</span> <span class="kw">enum</span> IResult&lt;Input,Output,CustomError=<span class="dt">u32</span>&gt; {
+  Done(Input,Output),
+  Error(<span class="cn">Err</span>&lt;Input,CustomError&gt;),
+  Incomplete(Needed)
+}</code></pre></div>
+<p><details> Done contains output and remaining input </details></p>
+</section>
+<section id="generics" class="slide level1">
+<h1>Generics</h1>
+<div class="sourceCode"><pre class="sourceCode rust"><code class="sourceCode rust">IResult&lt;&amp;[<span class="dt">u8</span>], &amp;[<span class="dt">u8</span>]&gt;
+IResult&lt;&amp;[<span class="dt">u8</span>], &amp;<span class="dt">str</span>&gt;
+IResult&lt;&amp;<span class="dt">str</span>, MyStruct&gt;</code></pre></div>
+<p><details>accept any type, stay type safe</details></p>
+</section>
+<section id="regular-expression-parsers" class="slide level1">
+<h1>Regular expression parsers</h1>
+<div class="sourceCode"><pre class="sourceCode rust"><code class="sourceCode rust"><span class="pp">named!</span>(rm&lt; &amp;<span class="dt">str</span>,<span class="dt">Vec</span>&lt;&amp;<span class="dt">str</span>&gt; &gt;,
+  <span class="pp">re_capture!</span>(<span class="st">r&quot;([:alpha:]+)\s+((\d+).(\d+).(\d+))&quot;</span>)
+);
+
+rm(<span class="st">&quot;nom 0.3.11 hello&quot;</span>);
+<span class="co">// =&gt; Done(&quot; hello&quot;, vec![&quot;nom 0.3.11&quot;,</span>
+<span class="co">//      &quot;nom&quot;, &quot;0.3.11&quot;, &quot;0&quot;, &quot;3&quot;, &quot;11&quot;]));</span></code></pre></div>
+</section>
+<section id="bit-stream-parsing" class="slide level1">
+<h1>Bit stream parsing</h1>
+<div class="sourceCode"><pre class="sourceCode rust"><code class="sourceCode rust"><span class="kw">let</span> input = <span class="pp">vec!</span>[<span class="dv">0b10101010</span>, <span class="dv">0b11110000</span>, <span class="dv">0b00110011</span>];
+
+<span class="pp">tag_bits!</span>( (&amp;input[..], <span class="dv">0</span>), <span class="dt">u8</span>, <span class="dv">3</span>, <span class="dv">0b101</span>)
+<span class="co">// =&gt; Done((&amp;sl[0..], 3), 5)</span></code></pre></div>
+</section>
+<section id="usual-combinators-and-parsers" class="slide level1">
+<h1>usual combinators and parsers</h1>
+<ul>
+<li>digit, alphanumeric, char, UTF-8 string, eof</li>
+<li>big endian signed and unsigned integers</li>
+<li>opt, is_not, peek</li>
+<li>take, many0, many1, count</li>
+<li>pair, separated_pair, preceded, terminated</li>
+<li>length_value</li>
+</ul>
+</section>
+<section id="zero-copy" class="slide level1">
+<h1>Zero copy</h1>
+<div class="sourceCode"><pre class="sourceCode rust"><code class="sourceCode rust"><span class="pp">named!</span>(http_version, <span class="pp">chain!</span>(
+             <span class="pp">tag!</span>(<span class="st">&quot;HTTP/&quot;</span>) ~
+    version: <span class="pp">take_while1!</span>(is_version),
+
+    || version));</code></pre></div>
+<p><details>version is just a slice of the input</details></p>
+</section>
+<section id="performance" class="slide level1">
+<h1>Performance</h1>
+<h2 id="filetype-box-parsing-in-mp4-github.comgealnom_benchmarkstreemastermp4">Filetype box parsing in MP4: github.com/Geal/nom_benchmarks/tree/master/mp4</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">small.mp4 (375 kB)</th>
+<th style="text-align: left;">bigbuckbunny.mp4 (5.3 MB)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">hammer</td>
+<td style="text-align: left;">32424 ns/iter</td>
+<td style="text-align: left;">26523 ns/iter</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">attoparsec</td>
+<td style="text-align: left;">1138 ns/iter (+/- 55.2)</td>
+<td style="text-align: left;">1124 ns/iter (+/- 62.3)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">cereal</td>
+<td style="text-align: left;">189 ns/iter (+/- 9.9)</td>
+<td style="text-align: left;">193 ns/iter (+/- 12.4)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nom</td>
+<td style="text-align: left;">240 ns/iter (+/- 56)</td>
+<td style="text-align: left;">195 ns/iter (+/- 69)</td>
+</tr>
+</tbody>
+</table>
+<p><details> the benchmarks are available on github for reproduction </details></p>
+</section>
+<section id="performance-1" class="slide level1">
+<h1>Performance</h1>
+<h2 id="http-parser-github.comgealnom_benchmarkstreemasterhttp">HTTP parser: github.com/Geal/nom_benchmarks/tree/master/http</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">21kB</th>
+<th style="text-align: left;">104kB</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">manual C</td>
+<td style="text-align: left;">62,451 ns/iter (+/- 1000 ns)</td>
+<td style="text-align: left;">300,000 ns/iter (+/- 16 ns)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nom</td>
+<td style="text-align: left;">48,420 ns/iter (+/- 2,662 ns)</td>
+<td style="text-align: left;">250,547 ns/iter (+/- 6,967 ns)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">attoparsec</td>
+<td style="text-align: left;">241.5 μs/iter (+/-5.7 μs)</td>
+<td style="text-align: left;">1.836 ms/iter (+/- 137 μs)</td>
+</tr>
+</tbody>
+</table>
+<p><details> the benchmarks are available on github for reproduction </details></p>
+</section>
+<section id="make-everything-easier" class="slide level1">
+<h1>Make everything easier</h1>
+<p><details> philosophy: make everything easier for the developer</p>
+<p>It is alright that nom gets more complex if building stuff with nom gets easier </details></p>
+</section>
+<section id="incomplete" class="slide level1">
+<h1>Incomplete</h1>
+<div class="sourceCode"><pre class="sourceCode rust"><code class="sourceCode rust"><span class="kw">pub</span> <span class="kw">enum</span> IResult&lt;Input,Output,CustomError=<span class="dt">u32</span>&gt; {
+  Done(Input,Output),
+  Error(<span class="cn">Err</span>&lt;Input,CustomError&gt;),
+  Incomplete(Needed)
+}
+
+<span class="kw">pub</span> <span class="kw">enum</span> Needed {
+  Unknown,
+  Size(<span class="dt">usize</span>)
+}
+
+<span class="pp">named!</span>(take_5, take(<span class="dv">5</span>));
+
+<span class="kw">let</span> res = take_5(&amp;<span class="st">&quot;abcd&quot;</span>[..]);
+<span class="co">// =&gt; Incomplete(Needed::Size(5))</span></code></pre></div>
+</section>
+<section id="streaming" class="slide level1">
+<h1>Streaming</h1>
+<p><img src="img/streaming.gif" class="centered" /></p>
+</section>
+<section id="iteratees-kind-of" class="slide level1">
+<h1>Iteratees (kind of)</h1>
+<div class="sourceCode"><pre class="sourceCode rust"><code class="sourceCode rust"><span class="kw">pub</span> <span class="kw">enum</span> ConsumerState&lt;O,E=(),M=()&gt; {
+  Done(O),
+  Error(E),
+  Continue(M)
+}
+
+[...]
+
+<span class="kw">let</span> <span class="kw">mut</span> m = MemProducer::new(&amp;b<span class="st">&quot;abcdefghijklabcdabcd&quot;</span>[..], <span class="dv">8</span>);
+
+<span class="kw">let</span> <span class="kw">mut</span> s1 = StateConsumer {
+               state: Continue(Consume(<span class="dv">0</span>)),
+               parsing: Initial
+             };
+<span class="kw">let</span> <span class="kw">mut</span> s2 = StrConsumer { state: Continue(Consume(<span class="dv">0</span>)) };
+<span class="kw">let</span> <span class="kw">mut</span> a = ChainConsumer::new(&amp;<span class="kw">mut</span> s1, &amp;<span class="kw">mut</span> s2);
+
+<span class="kw">let</span> res = m.apply(&amp;<span class="kw">mut</span> a));</code></pre></div>
+<p><details> state machine protected via type system</p>
+<p>actually, would be more interesting to handle errors at runtime </details></p>
+</section>
+<section id="debugging" class="slide level1">
+<h1>Debugging</h1>
+<p><details> tooling is crucial, we need easy ways to debug parsers </details></p>
+</section>
+<section id="hexdump" class="slide level1">
+<h1>Hexdump</h1>
+<div class="sourceCode"><pre class="sourceCode rust"><code class="sourceCode rust">slice.to_hex(<span class="dv">8</span>);</code></pre></div>
+<pre class="text"><code>ftyp header:
+00000000  6d 70 34 32 00 00 00 00  mp42....
+00000008  6d 70 34 32 69 73 6f 6d  mp42isom
+00000010  61 76 63 31              avc1</code></pre>
+</section>
+<section id="dbg-and-dbg_dmp" class="slide level1">
+<h1>dbg! and dbg_dmp!</h1>
+<div class="sourceCode"><pre class="sourceCode rust"><code class="sourceCode rust"><span class="pp">named!</span>(f, <span class="pp">dbg_dmp!</span>( <span class="pp">tag!</span>( <span class="st">&quot;abcd&quot;</span> ) ) );
+
+<span class="kw">let</span> a = &amp;b<span class="st">&quot;efghijkl&quot;</span>[..];
+
+f(a);
+<span class="co">// -&gt; Error(Position(Tag,</span>
+<span class="co">//          [101, 102, 103, 104, 105, 106, 107, 108]))</span>
+<span class="co">//    at l.1 by &#39; tag ! ( &quot;abcd&quot; ) &#39;</span>
+<span class="co">// -&gt; 00000000  65 66 67 68 69 6a 6b 6c  efghijkl</span></code></pre></div>
+</section>
+<section id="error-management" class="slide level1">
+<h1>Error management</h1>
+<div class="sourceCode"><pre class="sourceCode rust"><code class="sourceCode rust"><span class="kw">pub</span> <span class="kw">enum</span> IResult&lt;Input,Output,CustomError=<span class="dt">u32</span>&gt; {
+  Done(Input,Output),
+  Error(<span class="cn">Err</span>&lt;Input,CustomError&gt;),
+  Incomplete(Needed)
+}
+
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="cn">Err</span>&lt;Input,CustomError=<span class="dt">u32</span>&gt;{
+  Code( ErrorKind&lt;CustomError&gt; ),
+  Position( ErrorKind&lt;CustomError&gt;, Input ),
+  Node( ErrorKind&lt;CustomError&gt;,
+        <span class="dt">Box</span>&lt;<span class="cn">Err</span>&lt;Input,CustomError&gt;&gt; ),
+  NodePosition( ErrorKind&lt;CustomError&gt;, Input,
+                <span class="dt">Box</span>&lt;<span class="cn">Err</span>&lt;Input,CustomError&gt;&gt; )
+}</code></pre></div>
+</section>
+<section id="error-macro" class="slide level1">
+<h1>Error macro</h1>
+<div class="sourceCode"><pre class="sourceCode rust"><code class="sourceCode rust"><span class="pp">named!</span>(err_test,
+  <span class="pp">preceded!</span>(<span class="pp">tag!</span>(<span class="st">&quot;efgh&quot;</span>), <span class="pp">error!</span>(<span class="dv">42</span>,
+      <span class="pp">chain!</span>(
+             <span class="pp">tag!</span>(<span class="st">&quot;ijkl&quot;</span>)              ~
+        res: <span class="pp">error!</span>(<span class="dv">128</span>, <span class="pp">tag!</span>(<span class="st">&quot;mnop&quot;</span>)) ,
+        || { res }
+      )
+    )
+  )
+);
+<span class="kw">let</span> err = err_test( &amp;b<span class="st">&quot;efghblah&quot;</span>[..] );
+<span class="co">// -&gt; Error(    NodePosition(Custom(42),</span>
+<span class="co">//                           &amp;b&quot;efghblah&quot;[..],</span>
+<span class="co">//     Box::new(Position(Tag,</span>
+<span class="co">//                       &amp;b&quot;blah&quot;[..]))</span>
+<span class="co">//    ))</span></code></pre></div>
+<p><details> cut operator. No backtracking, early return. Catch the returned error from child parser, wraps it </details></p>
+</section>
+<section id="a-chain-of-errors" class="slide level1">
+<h1>A chain of errors</h1>
+<div class="sourceCode"><pre class="sourceCode rust"><code class="sourceCode rust"><span class="pp">named!</span>(err_test,
+  <span class="pp">preceded!</span>(<span class="pp">tag!</span>(<span class="st">&quot;efgh&quot;</span>), <span class="pp">error!</span>(<span class="dv">42</span>,
+    <span class="pp">chain!</span>(
+      <span class="pp">tag!</span>(<span class="st">&quot;ijkl&quot;</span>)              ~
+      res: <span class="pp">error!</span>(<span class="dv">128</span>, <span class="pp">tag!</span>(<span class="st">&quot;mnop&quot;</span>)) ,
+      || { res }
+    )
+  )
+  )
+);
+
+<span class="kw">let</span> err = err_test( &amp;b<span class="st">&quot;efghijklblah&quot;</span>[..]);
+<span class="co">// -&gt; Error(</span>
+<span class="co">//          NodePosition(Custom(42),</span>
+<span class="co">//                       &amp;b&quot;ijklblah&quot;[..],</span>
+<span class="co">//      Box::new(NodePosition(Custom(128),</span>
+<span class="co">//                            &amp;b&quot;blah&quot;[..],</span>
+<span class="co">//      Box::new(Position(Tag,</span>
+<span class="co">//                        &amp;b&quot;blah&quot;[..]))</span>
+<span class="co">//    ))))</span></code></pre></div>
+<p><details> we have a chain of errors, with corresponding positions in the input</p>
+<p>what can we do with that? </details></p>
+</section>
+<section id="pattern-matching" class="slide level1">
+<h1>pattern matching</h1>
+<div class="sourceCode"><pre class="sourceCode rust"><code class="sourceCode rust"><span class="kw">use</span> nom::util::error_to_list;
+
+<span class="kw">fn</span> error_to_string(e: <span class="cn">Err</span>) -&gt; &amp;<span class="dt">str</span> {
+  <span class="kw">let</span> v:<span class="dt">Vec</span>&lt;<span class="dt">u32</span>&gt; = error_to_list(e);
+  <span class="kw">match</span> &amp;v[..] {
+    [Custom(<span class="dv">42</span>), Tag]   =&gt; <span class="st">&quot;missing `ijkl` tag&quot;</span>,
+    [Custom(<span class="dv">42</span>),
+      Custom(<span class="dv">128</span>), Tag] =&gt; <span class="st">&quot;missing `mnop` tag after `ijkl`&quot;</span>,
+    _                   =&gt; <span class="st">&quot;unrecognized error&quot;</span>
+  }
+}</code></pre></div>
+<p><details> pattern matching will break if the grammar changes </details></p>
+</section>
+<section id="merr" class="slide level1">
+<h1>Merr</h1>
+<div class="sourceCode"><pre class="sourceCode rust"><code class="sourceCode rust"><span class="kw">let</span> <span class="kw">mut</span> err_map = HashMap::new();
+add_error_pattern(
+  &amp;<span class="kw">mut</span> err_map,
+  <span class="co">// generate error from known bad input</span>
+  parse(&amp;b<span class="st">&quot;efghaaaa&quot;</span>[..]),
+  <span class="st">&quot;missing `ijkl` tag&quot;</span>
+);
+
+<span class="kw">if</span> <span class="kw">let</span> Error(e) = parse(&amp;b<span class="st">&quot;efghblah&quot;</span>[..]) {
+  <span class="kw">let</span> msg = err_map.get(&amp;error_to_list(e));
+  <span class="co">// -&gt; &quot;missing `ijkl` tag&quot;</span>
+};
+
+<span class="kw">if</span> <span class="kw">let</span> Error(e) = parse(&amp;b<span class="st">&quot;efghijklblah&quot;</span>[..]) {
+  <span class="kw">let</span> msg = err_map.get(&amp;error_to_list(e))
+  <span class="co">// -&gt; &quot;missing `mnop` tag after `ijkl`&quot;</span>
+};</code></pre></div>
+<p><details> Merr for Menhir parsers in OCaml</p>
+<p>idea: generate error patterns from known bad inputs </details></p>
+</section>
+<section id="colorful-hexdump" class="slide level1">
+<h1>Colorful hexdump</h1>
+<div class="sourceCode"><pre class="sourceCode rust"><code class="sourceCode rust"><span class="pp">named!</span>(err_test, <span class="pp">alt!</span>(
+  <span class="pp">tag!</span>(<span class="st">&quot;abcd&quot;</span>) |
+  <span class="pp">error!</span>(<span class="dv">12</span>, <span class="pp">preceded!</span>(<span class="pp">tag!</span>(<span class="st">&quot;efgh&quot;</span>),
+    <span class="pp">error!</span>(<span class="dv">42</span>, <span class="pp">chain!</span>(
+               <span class="pp">tag!</span>(<span class="st">&quot;ijk&quot;</span>)               ~
+          res: <span class="pp">error!</span>(<span class="dv">128</span>, <span class="pp">tag!</span>(<span class="st">&quot;mnop&quot;</span>)) ,
+          || { res }
+    ))
+  ))
+));</code></pre></div>
+<p><img src="img/colortest.png" class="display" /> <img src="img/colorful-ftyp.png" class="display" /></p>
+<p><details> there's a catch: nested parser errors, not necessarily contiguous ones </details></p>
+</section>
+<section id="is-it-usable" class="slide level1">
+<h1>Is it usable?</h1>
+</section>
+<section id="existing-parsers" class="slide level1">
+<h1>Existing parsers</h1>
+<ul>
+<li>INI, libconfig, CSV</li>
+<li>Thrift, Kafka, SSMP, DHCP, IP, Bittorrent</li>
+<li>TAR, PCAP, GIF, MP4, FLAC</li>
+<li>FASTQ, ISO 8601, IRC, /proc info</li>
+<li><img src="img/dropbox.png" /> HTTP and logs</li>
+</ul>
+<p><details> about 50 projects on github, more in private</p>
+<p>dropbox started using months ago, when it was not very stable </details></p>
+</section>
+<section id="summing-up" class="slide level1">
+<h1>Summing up</h1>
+<ul>
+<li>fast</li>
+<li>memory safe language</li>
+<li>no runtime</li>
+<li>C compatible</li>
+<li>nice tools</li>
+</ul>
+<p><details> summing up: it is fast, it is easy to embed, there are lots of tools to help the developer, people are using it </details></p>
+</section>
+<section id="links" class="slide level1">
+<h1>Links</h1>
+<ul>
+<li>Nom: https://github.com/Geal/nom</li>
+<li>slides: http://dev.unhandledexpression.com/slides/strangeloop-2015/</li>
+<li>the benchmarks (come at me!): https://github.com/Geal/nom_benchmarks</li>
+<li>blog: https://unhandledexpression.com</li>
+<li>twitter: <span class="twitter"><span class="citation" data-cites="gcouprie">@gcouprie</span></span></li>
+</ul>
+<p><img src="img/hosting-powers.png"  style="width: 200px" /></p>
+<p><details> if you want some stickers... </details></p>
+</section>
+<section id="questions" class="slide level1">
+<h1>Questions ?</h1>
+</section>
+<section id="thanks" class="slide level1">
+<h1>Thanks!</h1>
+<p><img class="centered" src="img/clap-joker.gif" style="height: 500px" /></p>
+</section>
+<!-- {{{{ dzslides core
+#
+#
+#     __  __  __       .  __   ___  __
+#    |  \  / /__` |    | |  \ |__  /__`
+#    |__/ /_ .__/ |___ | |__/ |___ .__/ core :€
+#
+#
+# The following block of code is not supposed to be edited.
+# But if you want to change the behavior of these slides,
+# feel free to hack it!
+#
+-->
+
+<div id="progress-bar"></div>
+
+<!-- Default Style -->
+<style>
+  * { margin: 0; padding: 0; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+  details { display: none; }
+  body {
+    width: 800px; height: 600px;
+    margin-left: -400px; margin-top: -300px;
+    position: absolute; top: 50%; left: 50%;
+    overflow: hidden;
+  }
+  section {
+    position: absolute;
+    pointer-events: none;
+    width: 100%; height: 100%;
+  }
+  section[aria-selected] { pointer-events: auto; }
+  html { overflow: hidden; }
+  body { display: none; }
+  body.loaded { display: block; }
+  .incremental {visibility: hidden; }
+  .incremental[active] {visibility: visible; }
+  #progress-bar{
+    bottom: 0;
+    position: absolute;
+    -moz-transition: width 400ms linear 0s;
+    -webkit-transition: width 400ms linear 0s;
+    -ms-transition: width 400ms linear 0s;
+    transition: width 400ms linear 0s;
+  }
+  figure {
+    width: 100%;
+    height: 100%;
+  }
+  figure > * {
+    position: absolute;
+  }
+  figure > img, figure > video {
+    width: 100%; height: 100%;
+  }
+</style>
+
+<script>
+  var Dz = {
+    remoteWindows: [],
+    idx: -1,
+    step: 0,
+    slides: null,
+    progressBar : null,
+    params: {
+      autoplay: "1"
+    }
+  };
+
+  Dz.init = function() {
+    document.body.className = "loaded";
+    this.slides = $$("body > section");
+    this.progressBar = $("#progress-bar");
+    this.setupParams();
+    this.onhashchange();
+    this.setupTouchEvents();
+    this.onresize();
+  }
+  
+  Dz.setupParams = function() {
+    var p = window.location.search.substr(1).split('&');
+    p.forEach(function(e, i, a) {
+      var keyVal = e.split('=');
+      Dz.params[keyVal[0]] = decodeURIComponent(keyVal[1]);
+    });
+  // Specific params handling
+    if (!+this.params.autoplay)
+      $$.forEach($$("video"), function(v){ v.controls = true });
+  }
+
+  Dz.onkeydown = function(aEvent) {
+    // Don't intercept keyboard shortcuts
+    if (aEvent.altKey
+      || aEvent.ctrlKey
+      || aEvent.metaKey
+      || aEvent.shiftKey) {
+      return;
+    }
+    if ( aEvent.keyCode == 37 // left arrow
+      || aEvent.keyCode == 38 // up arrow
+      || aEvent.keyCode == 33 // page up
+    ) {
+      aEvent.preventDefault();
+      this.back();
+    }
+    if ( aEvent.keyCode == 39 // right arrow
+      || aEvent.keyCode == 40 // down arrow
+      || aEvent.keyCode == 34 // page down
+    ) {
+      aEvent.preventDefault();
+      this.forward();
+    }
+    if (aEvent.keyCode == 35) { // end
+      aEvent.preventDefault();
+      this.goEnd();
+    }
+    if (aEvent.keyCode == 36) { // home
+      aEvent.preventDefault();
+      this.goStart();
+    }
+    if (aEvent.keyCode == 32) { // space
+      aEvent.preventDefault();
+      this.toggleContent();
+    }
+    if (aEvent.keyCode == 70) { // f
+      aEvent.preventDefault();
+      this.goFullscreen();
+    }
+  }
+
+  /* Touch Events */
+
+  Dz.setupTouchEvents = function() {
+    var orgX, newX;
+    var tracking = false;
+
+    var db = document.body;
+    db.addEventListener("touchstart", start.bind(this), false);
+    db.addEventListener("touchmove", move.bind(this), false);
+
+    function start(aEvent) {
+      aEvent.preventDefault();
+      tracking = true;
+      orgX = aEvent.changedTouches[0].pageX;
+    }
+
+    function move(aEvent) {
+      if (!tracking) return;
+      newX = aEvent.changedTouches[0].pageX;
+      if (orgX - newX > 100) {
+        tracking = false;
+        this.forward();
+      } else {
+        if (orgX - newX < -100) {
+          tracking = false;
+          this.back();
+        }
+      }
+    }
+  }
+
+  /* Adapt the size of the slides to the window */
+
+  Dz.onresize = function() {
+    var db = document.body;
+    var sx = db.clientWidth / window.innerWidth;
+    var sy = db.clientHeight / window.innerHeight;
+    var transform = "scale(" + (1/Math.max(sx, sy)) + ")";
+
+    db.style.MozTransform = transform;
+    db.style.WebkitTransform = transform;
+    db.style.OTransform = transform;
+    db.style.msTransform = transform;
+    db.style.transform = transform;
+  }
+
+
+  Dz.getDetails = function(aIdx) {
+    var s = $("section:nth-of-type(" + aIdx + ")");
+    var d = s.$("details");
+    return d ? d.innerHTML : "";
+  }
+
+  Dz.onmessage = function(aEvent) {
+    var argv = aEvent.data.split(" "), argc = argv.length;
+    argv.forEach(function(e, i, a) { a[i] = decodeURIComponent(e) });
+    var win = aEvent.source;
+    if (argv[0] === "REGISTER" && argc === 1) {
+      this.remoteWindows.push(win);
+      this.postMsg(win, "REGISTERED", document.title, this.slides.length);
+      this.postMsg(win, "CURSOR", this.idx + "." + this.step);
+      return;
+    }
+    if (argv[0] === "BACK" && argc === 1)
+      this.back();
+    if (argv[0] === "FORWARD" && argc === 1)
+      this.forward();
+    if (argv[0] === "START" && argc === 1)
+      this.goStart();
+    if (argv[0] === "END" && argc === 1)
+      this.goEnd();
+    if (argv[0] === "TOGGLE_CONTENT" && argc === 1)
+      this.toggleContent();
+    if (argv[0] === "SET_CURSOR" && argc === 2)
+      window.location.hash = "#" + argv[1];
+    if (argv[0] === "GET_CURSOR" && argc === 1)
+      this.postMsg(win, "CURSOR", this.idx + "." + this.step);
+    if (argv[0] === "GET_NOTES" && argc === 1)
+      this.postMsg(win, "NOTES", this.getDetails(this.idx));
+  }
+
+  Dz.toggleContent = function() {
+    // If a Video is present in this new slide, play it.
+    // If a Video is present in the previous slide, stop it.
+    var s = $("section[aria-selected]");
+    if (s) {
+      var video = s.$("video");
+      if (video) {
+        if (video.ended || video.paused) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      }
+    }
+  }
+
+  Dz.setCursor = function(aIdx, aStep) {
+    // If the user change the slide number in the URL bar, jump
+    // to this slide.
+    aStep = (aStep != 0 && typeof aStep !== "undefined") ? "." + aStep : ".0";
+    window.location.hash = "#" + aIdx + aStep;
+  }
+
+  Dz.onhashchange = function() {
+    var cursor = window.location.hash.split("#"),
+        newidx = 1,
+        newstep = 0;
+    if (cursor.length == 2) {
+      newidx = ~~cursor[1].split(".")[0];
+      newstep = ~~cursor[1].split(".")[1];
+      if (newstep > Dz.slides[newidx - 1].$$('.incremental > *').length) {
+        newstep = 0;
+        newidx++;
+      }
+    }
+    this.setProgress(newidx, newstep);
+    if (newidx != this.idx) {
+      this.setSlide(newidx);
+    }
+    if (newstep != this.step) {
+      this.setIncremental(newstep);
+    }
+    for (var i = 0; i < this.remoteWindows.length; i++) {
+      this.postMsg(this.remoteWindows[i], "CURSOR", this.idx + "." + this.step);
+    }
+  }
+
+  Dz.back = function() {
+    if (this.idx == 1 && this.step == 0) {
+      return;
+    }
+    if (this.step == 0) {
+      this.setCursor(this.idx - 1,
+                     this.slides[this.idx - 2].$$('.incremental > *').length);
+    } else {
+      this.setCursor(this.idx, this.step - 1);
+    }
+  }
+
+  Dz.forward = function() {
+    if (this.idx >= this.slides.length &&
+        this.step >= this.slides[this.idx - 1].$$('.incremental > *').length) {
+        return;
+    }
+    if (this.step >= this.slides[this.idx - 1].$$('.incremental > *').length) {
+      this.setCursor(this.idx + 1, 0);
+    } else {
+      this.setCursor(this.idx, this.step + 1);
+    }
+  }
+
+  Dz.goStart = function() {
+    this.setCursor(1, 0);
+  }
+
+  Dz.goEnd = function() {
+    var lastIdx = this.slides.length;
+    var lastStep = this.slides[lastIdx - 1].$$('.incremental > *').length;
+    this.setCursor(lastIdx, lastStep);
+  }
+
+  Dz.setSlide = function(aIdx) {
+    this.idx = aIdx;
+    var old = $("section[aria-selected]");
+    var next = $("section:nth-of-type("+ this.idx +")");
+    if (old) {
+      old.removeAttribute("aria-selected");
+      var video = old.$("video");
+      if (video) {
+        video.pause();
+      }
+    }
+    if (next) {
+      next.setAttribute("aria-selected", "true");
+      var video = next.$("video");
+      if (video && !!+this.params.autoplay) {
+        video.play();
+      }
+    } else {
+      // That should not happen
+      this.idx = -1;
+      // console.warn("Slide doesn't exist.");
+    }
+  }
+
+  Dz.setIncremental = function(aStep) {
+    this.step = aStep;
+    var old = this.slides[this.idx - 1].$('.incremental > *[aria-selected]');
+    if (old) {
+      old.removeAttribute('aria-selected');
+    }
+    var incrementals = $$('.incremental');
+    if (this.step <= 0) {
+      $$.forEach(incrementals, function(aNode) {
+        aNode.removeAttribute('active');
+      });
+      return;
+    }
+    var next = this.slides[this.idx - 1].$$('.incremental > *')[this.step - 1];
+    if (next) {
+      next.setAttribute('aria-selected', true);
+      next.parentNode.setAttribute('active', true);
+      var found = false;
+      $$.forEach(incrementals, function(aNode) {
+        if (aNode != next.parentNode)
+          if (found)
+            aNode.removeAttribute('active');
+          else
+            aNode.setAttribute('active', true);
+        else
+          found = true;
+      });
+    } else {
+      setCursor(this.idx, 0);
+    }
+    return next;
+  }
+
+  Dz.goFullscreen = function() {
+    var html = $('html'),
+        requestFullscreen = html.requestFullscreen || html.requestFullScreen || html.mozRequestFullScreen || html.webkitRequestFullScreen;
+    if (requestFullscreen) {
+      requestFullscreen.apply(html);
+    }
+  }
+  
+  Dz.setProgress = function(aIdx, aStep) {
+    var slide = $("section:nth-of-type("+ aIdx +")");
+    if (!slide)
+      return;
+    var steps = slide.$$('.incremental > *').length + 1,
+        slideSize = 100 / (this.slides.length - 1),
+        stepSize = slideSize / steps;
+    this.progressBar.style.width = ((aIdx - 1) * slideSize + aStep * stepSize) + '%';
+  }
+  
+  Dz.postMsg = function(aWin, aMsg) { // [arg0, [arg1...]]
+    aMsg = [aMsg];
+    for (var i = 2; i < arguments.length; i++)
+      aMsg.push(encodeURIComponent(arguments[i]));
+    aWin.postMessage(aMsg.join(" "), "*");
+  }
+  
+  function init() {
+    Dz.init();
+    window.onkeydown = Dz.onkeydown.bind(Dz);
+    window.onresize = Dz.onresize.bind(Dz);
+    window.onhashchange = Dz.onhashchange.bind(Dz);
+    window.onmessage = Dz.onmessage.bind(Dz);
+  }
+
+  window.onload = init;
+</script>
+
+
+<script> // Helpers
+  if (!Function.prototype.bind) {
+    Function.prototype.bind = function (oThis) {
+
+      // closest thing possible to the ECMAScript 5 internal IsCallable
+      // function 
+      if (typeof this !== "function")
+      throw new TypeError(
+        "Function.prototype.bind - what is trying to be fBound is not callable"
+      );
+
+      var aArgs = Array.prototype.slice.call(arguments, 1),
+          fToBind = this,
+          fNOP = function () {},
+          fBound = function () {
+            return fToBind.apply( this instanceof fNOP ? this : oThis || window,
+                   aArgs.concat(Array.prototype.slice.call(arguments)));
+          };
+
+      fNOP.prototype = this.prototype;
+      fBound.prototype = new fNOP();
+
+      return fBound;
+    };
+  }
+
+  var $ = (HTMLElement.prototype.$ = function(aQuery) {
+    return this.querySelector(aQuery);
+  }).bind(document);
+
+  var $$ = (HTMLElement.prototype.$$ = function(aQuery) {
+    return this.querySelectorAll(aQuery);
+  }).bind(document);
+
+  $$.forEach = function(nodeList, fun) {
+    Array.prototype.forEach.call(nodeList, fun);
+  }
+
+</script>
+<!-- vim: set fdm=marker: }}} -->
+<link rel="stylesheet" href="override.css" type="text/css" />
+<link rel="stylesheet" href="style.css" type="text/css" />
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+$for(author-meta)$
+  <meta name="author" content="$author-meta$" />
+$endfor$
+$if(date-meta)$
+  <meta name="dcterms.date" content="$date-meta$" />
+$endif$
+  <title>$if(title-prefix)$$title-prefix$ - $endif$$if(pagetitle)$$pagetitle$$endif$</title>
+$if(highlighting-css)$
+  <style type="text/css">
+$highlighting-css$
+  </style>
+$endif$
+$if(css)$
+$for(css)$
+  <link rel="stylesheet" href="$css$" $if(html5)$$else$type="text/css" $endif$/>
+$endfor$
+$else$
+<!--
+<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+<link href='http://fonts.googleapis.com/css?family=Merriweather+Sans:400,300' rel='stylesheet'>
+-->
+<style>
+@font-face {
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 40
+    src: local('Oswald Regular'), local('Oswald-Regular'), url(http://localhost:8000/Oswald.woff) format('woff');
+}
+@font-face {
+  font-family: 'Merriweather Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Merriweather Sans Light'), local('MerriweatherSans-Light'), url(http://localhost:8000/MerryWeatherSansLight.woff) format('woff');
+}
+@font-face {
+  font-family: 'Merriweather Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Merriweather Sans Regular'), local('MerriweatherSans-Regular'), url(http://localhost:8000/MerryWeatherSansRegular.woff) format('woff');
+}
+  html { background-color: white; }
+  a { color: #FF0044; } a:hover {text-decoration: underline;}
+  footer { position: absolute; bottom: 20px; right: 100px; }
+  strong,code {color: #FF0044; } 
+  pre>code, code.sourceCode { color: #000; }
+  .sourceCode, pre.text {
+    background-color: #fff;
+    margin-left:  auto;
+    margin-right: auto;
+    width: 70%;
+  }
+  table {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  th, td {
+    border: 1px solid black;
+    padding: 5px;
+  }
+  body {
+      font-family: 'Merriweather Sans', arial, sans-serif;
+      background-color: white;
+      color: black;
+      font-size: 30px;
+      background: white;
+  }
+
+
+  /* Transition effect */
+  section {
+      -moz-transition: left 400ms ease-in 0s;
+      -webkit-transition: left 400ms ease-in 0s;
+      -ms-transition: left 400ms ease-in 0s;
+      transition: left 400ms ease-in 0s;
+      background: white;
+  }
+  section { left: -150%; }
+  section[aria-selected] { left: 0; }
+  section[aria-selected] ~ section { left: +150% }
+
+  .chapter { background-color: black;}
+  .chapter h1 {line-height: 600px; margin: 0; text-align: center; display: block}
+
+  h1,h2,h3,h4,h5,h6 {
+      font-family: 'Oswald', arial, serif;
+      margin: 20px 100px 0 100px;
+  }
+
+  h1 {
+      color: #EF0044;
+      font-size: 50px;
+      text-shadow: 0px -1px 0px #fff;
+      text-align: center;
+      display: block;
+      /*position: absolute;
+      top: 10%;*/
+  }
+  h2 {
+      color: #AE353B;
+      font-size: 40px;
+      text-align: center;
+  }
+
+  h3,h4,h5,h6 {
+      color: #FA353B;
+      margin-top: 10px;
+      font-size: 30px;
+      text-align: left;
+  }
+  h1.title { color: #000000; }
+  h2.author {
+    color: #000066;
+    width: 150px;
+    display:block;
+  }
+  .date {color: #000000; }
+  ul {
+      margin-top: 70px;
+      font-size: 30px;
+      text-align: left;
+      border-left: 4px solid black;
+      padding-left: 40px;
+      min-width: 310px;
+      margin-left: 30px;
+      display: inline-block;
+  }
+  q, p {
+      margin: 50px auto 0 auto;
+      width: 500px;
+  }
+  q:after {content: ""}
+  q:before {content: ""}
+  q {
+      display: block;
+      margin-top: 140px;
+  }
+  video {
+      position: absolute;
+      top: 210px;
+      width: 260px;
+      left: 445px;
+      box-shadow: 0 0 10px black;
+  }
+  /*
+  img {
+    max-height: 500px;
+  }
+  img.large  {
+    height: 40%;
+    position: absolute;
+    bottom: 20px;
+    text-align: center;
+  }
+
+  img.simple {
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  */
+  #arrow {
+      position: absolute;
+      top: 165px;
+      left: 460px;
+      font-size: 100px;
+      color: white;
+
+  }
+  li {list-style-type: none; margin-bottom: 20px}
+
+  pre {
+      font-size: 18px;
+      margin: 2em;
+  }
+</style>
+$endif$
+$if(math)$
+  $math$
+$endif$
+$for(header-includes)$
+  $header-includes$
+$endfor$
+</head>
+<body>
+$if(title)$
+<section>
+  <h1 class="title">$title$</h1>
+  <footer>
+$for(author)$
+  <h2 class="author">$author$</h2>
+  <h2 class="twitter">@gcouprie</h2>
+$endfor$
+  <h3 class="date">$date$</h3>
+  </footer>
+</section>
+$endif$
+$for(include-before)$
+$include-before$
+$endfor$
+$body$
+$for(include-after)$
+$include-after$
+$endfor$
+$dzslides-core$
+<link rel="stylesheet" href="override.css" type="text/css" />
+<link rel="stylesheet" href="style.css" type="text/css" />
+</body>
+</html>

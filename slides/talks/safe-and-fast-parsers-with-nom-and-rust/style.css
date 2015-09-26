@@ -1,0 +1,164 @@
+h1.title {
+  font-size: 50px;
+}
+h1 {
+  font-size: 80px;
+}
+code {
+  font-size: 24px;
+  line-height: 27px;
+}
+.sourceCode {
+  width: 80%;
+}
+.base {
+  background-color: #edebe6;
+}
+.base h1 {
+  color: #403b33;
+}
+.base h2.author {
+  color: #55acee;
+}
+.base h3 {
+  color: #232323;
+}
+.t1 {
+  background-color: #d3643b;
+}
+.t1 h1 {
+  color: #d6e1c7;
+  font-size: 190px;
+}
+.t1-inv {
+  background-color: #d6e1c7;
+}
+.t1-inv h1 {
+  color: #d3643b;
+  font-size: 190px;
+}
+.t2 {
+  background-color: #d6e1c7;
+}
+.t2 h1 {
+  color: #403b33;
+  font-size: 170px;
+}
+.t3 {
+  background-color: #edebe6;
+}
+.t3 h1 {
+  color: #403b33;
+  font-size: 170px;
+}
+.t4 {
+  background-color: #403b33;
+}
+.t4 h1 {
+  color: #94c7b6;
+  font-size: 170px;
+}
+.t5 {
+  background-color: #403b33;
+}
+.t5 h1 {
+  color: #ffffff;
+  font-size: 170px;
+}
+.title-small h1 {
+  font-size: 120px;
+}
+#videolan {
+  background-color: #d6e1c7;
+}
+#videolan h1 {
+  color: #d3643b;
+  font-size: 190px;
+}
+#we-need-a-practical-solution-now {
+  background-color: #d6e1c7;
+}
+#we-need-a-practical-solution-now h1 {
+  color: #403b33;
+  font-size: 170px;
+}
+#we-need-a-practical-solution-now h1 {
+  font-size: 120px;
+}
+#we-need-a-practical-solution-now h1 {
+  font-size: 80px;
+}
+#postels-law {
+  font-size: 50px;
+}
+#rust {
+  background-color: #d6e1c7;
+}
+#rust h1 {
+  color: #403b33;
+  font-size: 170px;
+}
+#not-enough-to-write-safe-code {
+  background-color: #d3643b;
+}
+#not-enough-to-write-safe-code h1 {
+  color: #d6e1c7;
+  font-size: 190px;
+}
+#not-enough-to-write-safe-code h1 {
+  font-size: 120px;
+}
+#no-garbage-collection {
+  background-color: #d3643b;
+}
+#no-garbage-collection h1 {
+  color: #d6e1c7;
+  font-size: 190px;
+}
+#make-everything-easier {
+  background-color: #403b33;
+}
+#make-everything-easier h1 {
+  color: #94c7b6;
+  font-size: 170px;
+}
+#why-nom,
+#langsec,
+#fixing-manual-parsing,
+#nom,
+#nom-1,
+#streaming,
+#is-it-usable {
+  background-color: #403b33;
+}
+#why-nom h1,
+#langsec h1,
+#fixing-manual-parsing h1,
+#nom h1,
+#nom-1 h1,
+#streaming h1,
+#is-it-usable h1 {
+  color: #ffffff;
+  font-size: 170px;
+}
+#where-do-errors-come-from {
+  background-color: #403b33;
+}
+#where-do-errors-come-from h1 {
+  color: #ffffff;
+  font-size: 170px;
+}
+#where-do-errors-come-from h1 {
+  font-size: 120px;
+}
+#debugging,
+#embeddable-as-c-lib,
+#questions {
+  background-color: #d3643b;
+}
+#debugging h1,
+#embeddable-as-c-lib h1,
+#questions h1 {
+  color: #d6e1c7;
+  font-size: 190px;
+}

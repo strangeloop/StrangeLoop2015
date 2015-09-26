@@ -1,0 +1,125 @@
+/*
+ color palette:
+ flat bone: #EDEBE6
+ easy: #D6E1C7
+ G 445: #94C7B6
+ Rigor Mortis: #403B33
+ morning: D3643B
+ */
+
+body {
+  width: 100%;
+  height: 100%;
+  top: 0%;
+  left: 0%;
+  margin-left: 0;
+  margin-top: 0;
+  background-color: #EDEBE6
+}
+
+html {
+  background-color: #403B33;
+}
+
+section {
+  background-color: #EDEBE6;
+}
+
+
+
+/* Increment with lists */
+.incremental > * { opacity: 1; }
+.incremental > *[aria-selected] { color: red; opacity: 1; }
+.incremental > *[aria-selected] ~ * { opacity: 0.2; }
+/* Increment with images */
+.incremental > img[aria-selected] { box-shadow: 0 0 10px #000 }
+
+h1 {
+  color: #403B33;
+  font-size: 50px;
+  text-shadow: 0px -1px 0px #fff;
+  text-align: center;
+  display: block;
+  position: absolute;
+  top: 10%;
+}
+
+h2 {
+  color: #AE353B;
+  font-size: 40px;
+  text-align: center;
+}
+
+h2.author {
+  color: #55ACEE;
+  width: 150px;
+  display:block;
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+}
+
+h2.twitter {
+  color: #55ACEE;
+  width: 150px;
+  display:block;
+  position: absolute;
+  bottom: 30px;
+  right: 0;
+}
+
+h3 {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: #232323;
+  font-weight: normal;
+  font-style: italic;
+}
+
+.slide h1 {
+  top: 0
+}
+
+section.slide h1 {
+  position: relative;
+  margin-bottom: 50px;
+}
+
+section.slide h2 {
+  position: absolute;
+  bottom: 20px;
+}
+
+figure img {
+  position: absolute;
+  top: 0;
+  overflow: hidden;
+  height:auto !important;
+}
+
+img.centered {
+  min-height: 400px;
+  max-height: 80%;
+  margin-left:auto;
+  margin-right: auto;
+  position:absolute;
+  left:0;
+  right:0;
+}
+
+img.display {
+  width: 700px;
+  margin-left:auto;
+  margin-right: auto;
+}
+
+
+ul {
+  margin-left: 20%;
+}
+
+li {
+  font-size: 40px;
+}
+

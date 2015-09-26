@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>How the Web is Democratizing Science (Join in!)</title>
+
+		<meta name="description" content="How the Web is Democratizing Science (Join in!) - presentation for Strange Loop 2015">
+		<meta name="author" content="Abigail Cabunoc Mayes">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="css/custom.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+        <section>
+          <h2>How the Web is <br />Democratizing Science</h2>
+          <h3>(Join in!)</h3>
+          <br />
+          <p>
+            Strange Loop Conference 2015
+            <br />
+            <small><a href="http://acabunoc.github.io/">Abigail Cabunoc Mayes</a> / <a href="http://twitter.com/abbycabs">@abbycabs</a></small>
+          </p>
+
+          <aside class="notes">
+            Thank organizers, it's an immense honour to be here - diversity scholarships
+          </aside>
+        </section>
+
+        <section style="text-align:left" data-background="img/me.jpg">
+          <h2>Hi! I'm <b>abbycabs</b></h2>
+          <p>
+            I work for the <b>Mozilla Foundation</b> where I'm
+            <br /><b>lead developer</b> for the <b>Mozilla Science Lab</b>.</p><p>I use the web to move science forward.
+          </p>
+        </section>
+
+        <section style="color:white" data-background="img/moz.png">
+          <p><img src="img/mozilla-logo-white.png"/><br />Building a better Internet: promoting openness, innovation & opportunity on the Web.</p>
+
+          <p><img src="img/mozilla-science-logo-white.png" width="500px"/><br />Helping researchers leverage the open web.</p>
+
+          <aside class="notes">Science Lab - applying Mozilla's mission to a very interesting community of practice. Where they have some very interesting and specific problems:</aside>
+        </section>
+
+        <section>
+          <p>Sony PSP video game graphics</p>
+          <hr>
+          <p>De novo sequence assembly</p>
+          <aside class="notes">
+            These both run algorithms that push the limit of the memory that's available to them. 64B.
+            Jared's story</aside>
+        </section>
+
+        <section data-background="img/WBGene00006763.jpg">
+          <h3>Problem 1</h3>
+          <p><b>Visualizing protein interactions in open worm data</b> to help us understand human diseases.</p>
+          <aside class="notes">I wanted to introduce you to some problems I care about, and our community cares about.</aside>
+        </section>
+
+        <section source="https://www.flickr.com/photos/ajc1/8498002874" data-background="img/8498002874_07060e0045_o.jpg">
+          <h3>Problem 2</h3>
+          <p><b>Analyzing open genetic data</b> to better understand how virus and bacteria interact.</p>
+        </section>
+
+        <section source="https://www.flickr.com/photos/jurvetson/1119819627" data-background="img/1119819627_e7a84cd65a_o.jpg">
+          <h3>Problem 3</h3>
+          <p><b>Collecting and curating open astronomy datasets</b> to facilitate data analysis and discovery.</p>
+          <aside class="notes">These problems (& more), are usually tackled daily by academics with very little formal computing training. But I think that the people in this room are better equiped to solve these problems -- even without the domain knowledge.</aside>
+        </section>
+
+        <section>
+
+          <img source="https://commons.wikimedia.org/wiki/File:Open_Science_Logo.jpg" src="img/Open_Science_Logo.jpg" /><br />
+          <small>Open Science logo by Greg Emmerich / CC-BY-SA</small>
+          <aside class="notes">This talk is really about 'open science'. I know I title it 'democratization of science', which is one of the outcomes...
+            But I'm really excited to show you how can be a part of this movement, which is really changing how research is done today.</aside>
+        </section>
+
+
+        <section>
+          <h2>What does 'Open' even mean?</h2>
+          <ul>
+            <li class="fragment"><b>open</b> source</li>
+            <li class="fragment"><b>open</b> access</li>
+            <li class="fragment"><b>open</b> data</li>
+            <li class="fragment"><b>open</b> standards</li>
+            <li class="fragment"><b>open</b> government</li>
+            <li class="fragment" style="color:blue"><b>open science</b></li>
+          </ul>
+
+          <aside class="notes">
+            We've seen this used for... and I think the word 'open' is starting to loose it's meaning<br /> When I first heard 'open science' it was vague and I thought it meants something like 'free science'.
+            <br />
+            I want to look back and see how this term came to inspire so many movements and try to bring back some of the meaning & power behind 'open'.
+
+            And I would argue that a lot of the fundamental ideas behind 'openness' today originates in science!
+          </aside>
+        </section>
+
+        <section source="https://upload.wikimedia.org/wikipedia/commons/1/14/Colbert_Presenting_the_Members_of_the_Royal_Academy_of_Sciences_to_Louis_XIV_in_1667.PNG" data-background="img/Colbert_Presenting_the_Members_of_the_Royal_Academy_of_Sciences_to_Louis_XIV_in_1667.PNG">
+          <aside class="notes">
+              Welcome to the scientific revolution!<br />
+              Colbert Presenting the Members of the Royal Academy of Sciences to Louis XIV in 1667.
+
+              At this time, there were a lot of scientific discoveries being made. But people realized they needed a platform to share and collaborate on research.
+          </aside>
+        </section>
+
+        <section>
+
+          <h3>“Philosophical Transactions <br />of the Royal Society”</h3>
+          <p>Established by the Royal Society of London in 1665</p>
+          <br />
+          <small>“Philosophical” = “natural philosophy” which is equivalent to “science” today</small>
+          <aside class="notes">
+
+            Coming out of the scientific revolution, the first academic journal devoted to science...
+          </aside>
+        </section>
+
+        <section>
+          <img src="img/Oldenburg.jpg" />
+          <aside source="https://blogs.royalsociety.org/publishing/philosophical-transactions-the-early-years/">Henry Oldenburg</aside>
+
+          <aside class="notes">The Royal Society’s first secretary, Henry Oldenburg, wrote a series of letters giving us insight into the values driving the creation of the journal.</aside>
+        </section>
+
+        <section>
+          <h3>Credit & Documentation</h3>
+
+          <blockquote>“We must be very careful as well of <span class="highlight">regist’ring the person and time</span> of any new matter, as the <span class="highlight">matter itselfe</span>, whereby the honor of the invention will be <span class="highlight">reliably preserved to all posterity</span>”<br /> <small><a href="https://collections.royalsociety.org/DServe.exe?dsqIni=Dserve.ini&dsqApp=Archive&dsqDb=Catalog&dsqSearch=RefNo==%27EL%2FOB%2F26%27&dsqCmd=Show.tcl">24 November 1664</a></small></blockquote>
+        </section>
+
+        <section>
+
+          <h3>Sharing</h3>
+
+          <blockquote>“…all ingenious men will thereby be incouraged to <span class="highlight">impact their knowledge and discoverys</span> ”<br /> <small><a href="https://collections.royalsociety.org/DServe.exe?dsqIni=Dserve.ini&dsqApp=Archive&dsqCmd=Show.tcl&dsqDb=Catalog&dsqPos=20&dsqSearch=%28%28text%29%3D%27Henry%20Oldenburg,%20dated%20at%20London,%20to%20Robert%20Boyle%27%29">3 December 1664</a></small></blockquote>
+
+          <h3>Participation</h3>
+          <blockquote>“ … being first <span class="highlight">revised by some of the members.</span>”<br /> <small><a href="https://collections.royalsociety.org/dserve.exe?dsqIni=Dserve.ini&dsqApp=Archive&dsqCmd=Show.tcl&dsqSearch=RefNo==%27CMO%2F1%2F77%27&dsqDb=Catalog">Royal Society of London, Council Minutes, 1 March 1665</a></small>
+          </blockquote>
+
+          <aside class="notes">Need to share discoveries in order to build on them. <br/ >Science is better with more eyes</aside>
+        </section>
+
+        <section>
+          <p>Science embraced a culture of working together and sharing discoveries to further human knowledge.</p>
+
+          <aside class="notes">This has enabled many scientific breakthroughs. Today, almost all advances in science appear in a journal article.</aside>
+        </section>
+
+        <section data-background="img/astronomy.gif">
+        </section>
+
+        <section data-background="img/bacteria.gif">
+        </section>
+
+        <section source="Kickstarter/OpenWorm" data-background="img/elegans.gif">
+          <aside class="notes">WormBase - C. elegans</aside>
+        </section>
+
+        <section>
+            <h2>Fast Forward</h2>
+            <p>The Web + Free Software
+            = <b>New Meaning of 'Open'</b></p>
+
+            <aside class="notes">
+              some ideas around working open start to appear in the 90s
+            </aside>
+        </section>
+
+        <section>
+
+          <a href="http://www.catb.org/esr/writings/homesteading/cathedral-bazaar/"><img style="max-width:80%" src="img/cathedral_and_bazaar.jpg"/></a>
+
+          <small><a href="https://www.flickr.com/photos/gforsythe/7985992388/">gforsythe CC BY-NC-SA 2.0</a></small>
+
+          <aside class="notes">
+            Essay on the state of free software at the time.
+            Linux
+          </aside>
+        </section>
+
+        <section>
+
+          <blockquote> “Linus Torvalds’s style of development—release early and often, delegate everything you can, be <span class="highlight">open to the point of promiscuity</span>—came as a surprise. No quiet, reverent <b>cathedral</b>-building here—rather, the Linux community seemed to resemble a great babbling <b>bazaar</b> of differing agendas and approaches... out of which a coherent and stable system could seemingly emerge…”
+          </blockquote>
+          <aside class="notes">
+            Inspired Netscape...
+          </aside>
+        </section>
+
+        <section>
+          <h2>Mozilla</h2>
+          <p>In 1998, the Netscape Corporation <a href="https://www.mozilla.org/en-US/about/history/details/">released the Netscape browser suite</a> as free software.</p><p>This became the basis of the <b>Mozilla Project</b> and sparked the label <b><a href="http://opensource.org/history">open source</a></b>.</p>
+        </section>
+
+        <section>
+          <h2>Working Open</h2>
+          <p><b>Public and participatory</b>. This requires structuring efforts so that "outsiders" can meaningfully participate and become "insiders" as appropriate.</p>
+          <small><a href="https://wiki.mozilla.org/Working_open">Working Open, Mozilla Wiki</a></small>
+
+          <aside class="notes">
+            Let's compare this definition of working open with some of the practices we see in science today.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Science today</h2>
+          <p>(a fictional example)</p>
+        </section>
+
+        <section>
+
+          <div style="float:left;width:50%">
+            <img src="img/noun_10278.png" />
+            <aside>Gretta Grad Student</aside>
+          </div>
+
+          <div style="float:right;width:50%">
+            <img src="img/noun_4405.png" />
+            <aside>Strange Loop University</aside>
+          </div>
+        </section>
+
+        <section>
+          <div style="float:left;width:50%">
+            <img src="img/noun_10278.png" />
+            <aside>Gretta Grad Student</aside>
+          </div>
+
+          <div style="float:right;width:50%">
+            <img src="img/noun_13599.png" />
+            <aside><i>Strangus Loopi</i></aside>
+          </div>
+        </section>
+
+
+        <section>
+          <div style="float:left;width:50%">
+            <img src="img/noun_19031.png" />
+            <aside>Gretta wants to study a population in western Africa</aside>
+          </div>
+
+          <div style="float:right;width:50%">
+            <img src="img/noun_13599.png" />
+            <aside><i>Strangus Loopi</i></aside>
+          </div>
+        </section>
+
+        <section>
+          <p><h3>Sequencing</h3><small>(read the DNA code in the bacteria)</small></p>
+          <p>($100 / strain) x 250 strains = $25K</p>
+          <p>$5K x 1 strain (<i>S. loopi STL</i>) = $5K<br /><small>(on a special long-read PacBio sequencer)</small></p>
+        </section>
+
+        <section>
+          <div style="float:left;width:50%">
+            <img src="img/noun_10278.png" />
+            <aside>Gretta Grad Student</aside>
+          </div>
+
+          <div>
+            <br /><br /><br />
+            <p>Gretta has spent $30K and now has lots of data!</p>
+          </div>
+        </section>
+
+        <section>
+          <div style="float:left;width:50%">
+            <img src="img/noun_10278.png" />
+            <aside>Gretta goes to her first scientific meeting</aside>
+          </div>
+
+          <div style="float:right;width:50%">
+            <img src="img/noun_4405.png" />
+            <aside><i>S. Loopi</i> International Meeting</aside>
+          </div>
+        </section>
+
+
+        <section>
+          <div style="float:left;width:30%">
+            <img src="img/noun_10278.png" />
+          </div>
+
+          <div style="float:left;width:30%">
+            <img src="img/noun_10278.png" />
+          </div>
+
+          <div style="float:left;width:30%">
+            <img src="img/noun_10278.png" />
+          </div>
+          <p>Gretta discovers that two other research groups have also sequenced the <i>S. loopi STL</i> strain using PacBio</p>
+          <p class="fragment"><b>Resource loss</b>: $10K savings had they shared their data!<br /> <small>(+ PacBio cost of $700K)</small></p>
+
+          <aside class="notes">
+            It's kinda weird they all look alike... but way to go women in science!
+          </aside>
+
+        </section>
+
+
+        <section>
+          <div style="float:left;width:30%">
+            <img src="img/noun_10278.png" />
+          </div>
+
+          <div style="float:right;width:30%">
+            <img src="img/tucker.png" />
+          </div>
+
+          <p>Gretta meets Tucker who is also studying <i>S. loopi</i> in West Africa. They don't share a lot of their discoveries since they're both scared of being scooped.</p>
+          <p class="fragment"><b>Knowledge loss & Resource loss</b><br /><small>($25K if they shared data)</small></p>
+        </section>
+
+
+        <section>
+          <div style="float:left;width:50%">
+            <img src="img/noun_10278.png" />
+            <aside>Gretta: time to analyze data!</aside>
+          </div>
+
+          <div>
+            <br /><br /><br />
+            <p class="fragment">But she has never written code!</p>
+            <p class="fragment">She spends 6 months teaching herself python and bioinformatics to make sense of her data.</p>
+          </div>
+        </section>
+
+        <section>
+          <div style="float:left;width:30%">
+            <img src="img/noun_10278.png" />
+          </div>
+
+          <div style="float:right;width:30%">
+            <img src="img/tucker.png" />
+          </div>
+
+          <p>Gretta and Tucker independently teach themselves python and run the same analysis on their data. They never share their code.</p>
+
+          <p class="fragment">Neither one realizes that <b>a python library exists</b> for this.</p>
+          <p class="fragment"><b>Software loss & Time loss</b></p>
+        </section>
+
+
+        <section>
+          <h3>Results</h3>
+          <div style="float:left;width:30%">
+            <img src="img/noun_10278.png" />
+          </div>
+          <div style="text-align:left">
+            <p>There is a potentially dangerous strain of <br /><i>S. loopi</i> in West African populations.</p>
+
+            <p class="fragment">Time to publish!</p>
+          </div>
+
+        </section>
+
+
+        <section>
+          <img src="img/money.png" />
+        </section>
+
+
+        <section>
+          <div style="float:left;width:50%">
+            <img src="img/noun_10278.png" />
+            <aside>Gretta is published in a high impact journal!</aside>
+          </div>
+
+          <div>
+            <p class="fragment">She gets a prestigious fellowship.</p>
+            <p class="fragment">Her research is paywalled and inaccessible by the West African community she studied.</p>
+            <p class="fragment">They don't take preventative measures to handle the dangerous strain of <i>S. loopi</i>. An outbreak happens.</p>
+          </div>
+        </section>
+
+
+        <section data-background="img/paywall.jpg">
+          <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+          <small style="float:right">John R. McKiernan, CC BY-NC-ND</small>
+        </section>
+
+        <section>
+          <div style="float:left;width:50%">
+            <img src="img/ebola.png" />
+          </div>
+          <div style="float:right;width:50%">
+            <img src="img/ebola_outbreak.png" />
+          </div>
+        </section>
+
+        <section>
+          <p>loss of <span class="fragment"><b>resources</b></span><span class="fragment">, <b>software</b></span><span class="fragment">, <b>time</b></span><span class="fragment"> and <b style="color:red">lives</b></span></p>
+
+          <aside class="notes">
+            In research today, we see a loss of...<br />
+            So, I called this the democratization of science. And this is why I will..
+          </aside>
+        </section>
+
+        <section>
+          <img src="img/Democracyprop.jpg" />
+          <aside class="notes">I will fight for democracy in science! (if it means open)</aside>
+        </section>
+
+        <section>
+          <h2>Where we see open science today</h2>
+        </section>
+
+        <section>
+          <h3>Problem 1</h3>
+          <p><b>Visualizing protein interactions in open worm data</b> to help us understand human diseases.</p>
+
+          <p>WormBase & Cytoscape.js</p>
+        </section>
+
+        <section>
+          <img src="img/cytoscape.png" />
+        </section>
+
+        <section>
+          <img src="img/wormBaseLogo.png" width="100px"/>
+          <blockquote>WormBase is the glue that holds the C. elegans research community together. Many in the field start their day with a cup of coffee and WormBase; for many WormBase stays open all day on their computer as a constant companion. There’s simply <span class="highlight">no more efficient way to integrate all of the new data generated in the field</span>.</blockquote>
+        </section>
+
+        <section>
+          <h3>Problem 2</h3>
+          <p><b>Analyzing open genetic data</b> to better understand how virus and bacteria interact.</p>
+        </section>
+
+        <section>
+          <img src="img/phageparser.png" />
+        </section>
+
+        <section>
+          <img src="img/phageParser_workflow_diagram.png" />
+        </section>
+
+
+        <section>
+          <h3>Problem 3</h3>
+          <p><b>Collecting and curating open astronomy datasets</b> to facilitate data analysis and discovery.</p>
+
+        </section>
+
+        <section>
+          <img src="img/trillian.png" />
+          <p>
+            <a href="http://trillianverse.org/">http://trillianverse.org/</a>
+          </p>
+        </section>
+
+        <section>
+          <blockquote>Astronomy produces extremely large data sets from ground-based telescopes, space missions, and simulation. The problem is that no one institution can host all of this data, let alone have the resources to properly manage it. The result is that applying analyses against full data sets across the wide range of wavelengths available is either beyond the resources of most astronomers or currently impossible. Trillian will make this simple and straightforward.</blockquote>
+        </section>
+
+        <section>
+          <img src="img/distributed_graphic.png" />
+        </section>
+
+        <section>
+          + many more problems like these!
+                    <aside class="notes">These problems (& more), are usually tackled daily by academics with very little formal computing training. But I think that the people in this room are better equiped to solve these problems -- even without the domain knowledge.</aside>
+        </section>
+
+        <section data-background="img/too_much_science.gif">
+          <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+          <small style="float:right"><a href="http://www.reactiongifs.com/much-science/?utm_source=rss&utm_medium=rss&utm_campaign=much-science">Source www.reactiongifs.com</a></small>
+        </section>
+
+        <section>
+          <h2>Acknowledgements</h2>
+
+          <p>
+            <a href="https://twitter.com/mbonsma">Madeleine Bonsma</a>, <a href="https://twitter.com/hopefulcyborg">Angelina Fabbro</a>, <a href="http://maxfranz.com/">Max Franz</a>, <a href="https://twitter.com/tharris">Todd Harris</a>, <a href="http://www.cibl-harvard.org/elizabethhuynh">Elizabeth Huynh</a>, <a href="https://twitter.com/minisciencegirl">Amy Lee</a>, <a href="http://www.joshmatthews.net/">Josh Matthews</a>, <a href="https://twitter.com/emckiernan13">Erin McKiernan</a>, <a href="#">John R. McKiernan</a>, <a href="http://twitter.com/billdoesphysics">Bill Mills</a>, <a href="https://twitter.com/demitrimuna">Demitri Muna</a>, <a href="https://twitter.com/jaredtsimpson">Jared Simpson</a>, <a href="https://oicr.on.ca/person/oicr-investigator/lincoln-stein">Lincoln Stein</a>
+          </p>
+          <p>
+             (+ the Mozilla Science Lab! <a href="https://twitter.com/kaythaney">Kaitlin Thaney</a>,
+            <a href="">Arliss Collins</a>, <a href="">Zannah Marsh</a>, <a href="">Steph Wright</a>)
+          </p>
+
+        </section>
+
+        <section data-background="img/science.gif">
+
+        </section>
+
+        <section>
+          <h2>Science is for everyone!</h2>
+          <p><a href="https://www.mozillascience.org/volunteer">mozillascience.org/volunteer</a></p>
+        </section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+    <script src="js/main.js"></script>
+
+	</body>
+</html>

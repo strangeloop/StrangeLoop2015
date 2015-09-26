@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+	<html class="sl-root base export loaded">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Side Effects are a Public API: Slides</title>
+		<meta name="description" content="Slides">
+
+		<link rel="stylesheet" type="text/css" href="lib/offline-v2.css">
+	</head>
+	<body class="reveal-viewport theme-font-montserrat theme-color-white-blue">
+		<div class="reveal">
+			<div class="slides">
+				<section data-id="819cf33d7a258167208c5ee193c53964"><div class="sl-block" data-block-type="text" style="width: 800px; left: 80px; top: 70px; height: auto;" data-block-id="d8a07fe29872d05b22e05f82deecaadf"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11;">
+<h1>Side Effects are a Public API</h1>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 180px; top: 471px;" data-block-id="c83fe4c12d4ccae7a9d67e4eb1504582"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;">
+<p>@radix</p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 180px; top: 541px;" data-block-id="a371219f7dfe243473c374b2a7a52357"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<p>(Christopher Armstrong)</p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 180px; top: 289px;" data-block-id="467033fed10dd664d6c0faf1902709d9"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14; font-size: 155%;">
+<p>Functional effects in imperative languages</p>
+</div></div></section><section data-id="772fa3a9f230a2b3644f88d0ba5f7c01"><div class="sl-block" data-block-type="text" style="width: 900px; left: 30px; top: 58px; height: auto;" data-block-id="f14e8327cb7c649fa8f02b309ac17d71"><div class="sl-block-content" data-placeholder-tag="h1" style="font-size: 200%; text-align: left;" data-placeholder-text="Text">
+<h1>Day jobs</h1>
+
+<pre><span style="font-size:2.0em">:-(</span></pre>
+</div></div></section><section data-id="aee626cb2697dab78f988c21261887fe"><div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 0px; top: 76px;" data-block-id="39e2c6ff2c8b963ba5ee4048c4e506ed"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11; text-align: left;">
+<h1>Python</h1>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 684px; left: 276px; top: 117px;" data-block-id="01bc8dad8e92fd2ff1d1e98fc6dba4aa"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12; text-align: right;">
+<pre style="text-align: right;">pip install toolz pyrsistent</pre>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 0px; top: 216px;" data-block-id="447c8e744a5f22d56760906658090072"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13; text-align: left;">
+<h1>Ruby</h1>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 642px; left: 318px; top: 257px;" data-block-id="e085e70a3ebe75f31a42d2f9de1afbc4"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14; text-align: right;">
+<pre style="text-align: right;">gem install functional-ruby hamster</pre>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 0px; top: 496px;" data-block-id="ec6286e6d9ab5412298183c1b55c9ac5"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 15; text-align: left;">
+<h1>Java</h1>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 360px; top: 540px;" data-block-id="ba52090b3f2cc9751bb84545f8eb9389"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 16;">
+<p style="text-align: right;">functionaljava.org</p>
+
+<p style="text-align: right;">(clojure, scala)</p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 0px; top: 356px;" data-block-id="fae019f03526f64aa9a8b5deff623e97"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 17; text-align: left;" dir="ui">
+<h1>JS</h1>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 360px; top: 400px;" data-block-id="496665e20fbd247a72249b949ea5964d"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 18;" dir="ui">
+<p style="text-align:right">Ramda, fn.js, functional.js, underscore.js</p>
+
+<p style="text-align:right">(clojurescript, elm, purescript)</p>
+</div></div></section><section data-id="404b95ce36525c7affb8006393661694"><div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 800px; left: 79px; top: 70px;" data-block-id="06384636447dacfad48fc2c2a840ec31"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11; border-width: 1px; text-align: left;">
+<pre>YOLO, v, t.
+
+1. Modifying state or performing
+   IO implicitly in a function.
+   [1913 Webster]
+</pre>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 801px; left: 78px; top: 280px;" data-block-id="9bdc48b5efb1de5338d7e4d6f08994ca"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;" data-fragment-index="0">
+<pre>   This function YOLOs an accumulator every 
+   time it's called.</pre>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 800px; left: 80px; top: 382px;" data-block-id="c68e36fc483035b47ff0d8023a9316ff"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;" data-fragment-index="1">
+<pre>   Java's URL objects YOLO the Internet when 
+   you try to compare them for equality!?!? 
+   whaaat.</pre>
+</div></div></section><section data-id="e5a3077f331929521a5c7d6369179252"><div class="sl-block" data-block-type="text" style="width: 928px; left: 16px; top: 35px; height: auto;" data-block-id="e48b6095923773da09372086f755a782"><div class="sl-block-content" data-placeholder-tag="h1" style="font-size: 200%; text-align: left;" data-placeholder-text="Text">
+<h1>Isolate</h1>
+
+<h1>your</h1>
+
+<h1>side-effects</h1>
+</div></div></section><section data-id="322686eda7407e9dcf2bb6e7ae49c13f"><div class="sl-block" data-block-type="text" style="width: 900px; left: 30px; top: 58px; height: auto;" data-block-id="f480d7ed177eaa25271dced1df993ab4"><div class="sl-block-content" data-placeholder-tag="h1" style="font-size: 200%; text-align: left;" data-placeholder-text="Text">
+<h1>Modular</h1>
+
+<h1>=</h1>
+
+<h1>Testable</h1>
+</div></div></section><section data-id="76bd5b061bc29ffc143a5aa4d17e09da"><div class="sl-block" data-block-type="text" style="width: 800px; left: 80px; top: 270px; height: auto;" data-block-id="586359c4247a7e2bdcc85e0ae17d27cd"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text">
+<h1>You can do it</h1>
+</div></div></section><section data-id="7cc26dc3c6dbe2bd423cfe26e56b598d"><div class="sl-block" data-block-type="text" style="width: 800px; left: 80px; top: 213px; height: auto;" data-block-id="9241e0be9a2dbd06559752f0c0edd390"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text">
+<h1>BONUS:</h1>
+
+<h1>Testing in Haskell!</h1>
+</div></div></section><section data-id="88d7e59dc6f0f8b6b73f5b6c584cf5c8"><div class="sl-block" data-block-type="text" style="width: 410px; left: 50px; top: 69px; height: auto;" data-block-id="1d648c3214c5728a688a67bb65b5401b"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 11;">
+<h2>CODE</h2>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 800px; left: 81px; top: 214px;" data-block-id="eb7fb9aa05e62927441cba9425695797"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;">
+<pre>def greet():
+    name = raw_input('Enter your name&gt; ')
+    print('Hello there, %s!' % (name,))
+    fname = raw_input("Friend's name? ")
+    print('Greets, %s.' % (fname,))
+    return (name, fname)
+
+</pre>
+</div></div></section><section data-id="07d8e11d06251d65a59870fde67ca5fe"><div class="sl-block" data-block-type="text" style="width: 410px; left: 49px; top: 17px; height: auto;" data-block-id="19fa6359d090714b0d8d0086f131fc76"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 11;" dir="ui">
+<h2>TEST</h2>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 881px; left: 41px; top: 124px;" data-block-id="ccadf62e72bc04b9050418bec3b0a9ae"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;">
+<pre>import mock
+
+@mock.patch('__main__.raw_input')
+@mock.patch('__main__.print')
+def test_greet_idiomatic(print_mock, raw_input_mock):
+    def my_raw_input(prompt):
+        if prompt == "Enter your name&gt; ":
+            return 'radix'
+        elif prompt == "Friend's name? ":
+            return 'ace'
+    raw_input_mock.side_effect = my_raw_input
+    assert greet() == ('radix', 'ace')
+    raw_input_mock.assert_any_call(
+        'Enter your name&gt; ')
+    print_mock.assert_any_call('Hello there, </pre>
+</div></div></section><section data-id="f3663576eecd23334f54eda2b577052e"><div class="sl-block" data-block-type="text" style="width: 800px; left: 80px; top: 190px; height: auto;" data-block-id="7a7fb0470caec9d4378f1b65c8bbe089"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text">
+<h2>What we want to test</h2>
+</div></div>
+<div class="sl-block" data-block-type="text" style="width: 800px; left: 80px; top: 264px; height: auto;" data-block-id="35a3a688ed699f985d5e5009a2c0fe58"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text">
+<ol>
+	<li>First name prompted</li>
+	<li>First greeting printed</li>
+	<li>Second name prompted</li>
+	<li>Second greeting printed</li>
+</ol>
+
+<p>IN THIS ORDER</p>
+
+<p> </p>
+
+<p>Final result: (my name, friend's name)</p>
+</div></div></section><section data-id="68481301f5f3ddb030a596b2f8d94a35"><div class="sl-block" data-block-type="text" style="width: 928px; left: 16px; top: 35px; height: auto;" data-block-id="57f167f640acf49a07c860e5952f4ee3"><div class="sl-block-content" data-placeholder-tag="h1" style="font-size: 200%; text-align: left; z-index: 11;" data-placeholder-text="Text">
+<h1>Side-effects<br>
+are a<br>
+public API</h1>
+</div></div></section><section data-id="4fee94992742ee057d1f0de884170f64"><div class="sl-block" data-block-type="text" style="width: 928px; left: 16px; top: 35px; height: auto;" data-block-id="b42f7684aafe97f77ba1978ada82f8b2"><div class="sl-block-content" data-placeholder-tag="h1" style="font-size: 200%; text-align: left; z-index: 11;" data-placeholder-text="Text">
+<h1>Side-effects<br>
+have an<br>
+order</h1>
+</div></div></section><section data-id="61f859b51ed876d651806600b60ba92e"><div class="sl-block" data-block-type="text" style="width: 671px; left: 49px; top: 69px; height: auto;" data-block-id="b85dcbe4c1ba626742b5e93bb12d35f8"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
+<h2>Effectful Greet</h2>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 880px; left: 80px; top: 382px;" data-block-id="19d0dd1da567de1aadab5c45ece09ad6"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11; text-align: left;">
+<pre><span style="color:#FF0000">@do</span>
+def greet_eff():
+    name = <span style="color:#FF0000">yield prompt</span>('Enter your name&gt; ')
+    <span style="color:#FF0000">yield display</span>('Hello there, %s!' % (name,))
+    fname = <span style="color:#FF0000">yield prompt</span>("Friend's name? ")
+    <span style="color:#FF0000">yield display</span>('Greets, %s.' % (fname,))
+    <span style="color:#FF0000">yield do_return</span>((name, fname))</pre>
+
+<p> </p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 800px; left: 80px; top: 149px;" data-block-id="4d24b033faf92af21f0ac3b75b34ccd8"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<pre><span style="color:#696969">def greet():
+    name = raw_input('Enter your name&gt; ')
+    print('Hello there, %s!' % (name,))
+    fname = raw_input("Friend's name? ")
+    print('Greets, %s.' % (fname,))
+    return (name, fname)
+</span>
+</pre>
+</div></div></section><section data-id="7856517b69f71e62fce0556b0d9b5960"><div class="sl-block" data-block-type="text" style="width: 410px; left: 49px; top: 69px; height: auto;" data-block-id="ebfc0e8b151487694488c9312c00e2fc"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
+<h2>Low-level</h2>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 1069px; left: -55px; top: 221px;" data-block-id="f0212a0173d61ff2982295cd71502260"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<pre>def greet_eff_no_do():
+  return prompt('Enter your name&gt; ').on(
+    lambda name: display('Hello there, %s!' % (name,)).on(
+      lambda _: prompt("Friend's name? ").on(
+        lambda fname: display('Greets, %s.' % (fname,)).on(
+          lambda _: (name, fname)))))
+<span style="font-size:36px">
+</span></pre>
+</div></div></section><section data-id="51648af73a74e0eb3b9694b674140b74"><div class="sl-block" data-block-type="text" style="width: 410px; left: 49px; top: 69px; height: auto;" data-block-id="1028a3287a0849e4c829b9bf706c2f04"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
+<h2>Effect</h2>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 800px; left: 81px; top: 214px;" data-block-id="37c0fec478528939a0de37f347bf7cb4"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;" dir="ui">
+<pre>class Effect(object):
+  def __init__(self, intent, cbs=()):
+    self.intent = intent
+    self.cbs = cbs
+
+  def on(self, cb):
+    return Effect(self.intent,
+                  self.cbs + (cb,))
+</pre>
+</div></div></section><section data-id="7765227bca184475cd212ac2cccf72f1"><div class="sl-block" data-block-type="text" style="width: 800px; left: 80px; top: 0px; height: auto;" data-block-id="affb5f8972adb221fd6f9fa1cdfa5dda"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="z-index: 10; text-align: left;">
+<h2>What's an intent?</h2>
+</div></div>
+<div class="sl-block" data-block-type="text" style="width: 800px; left: 80px; top: 80px; height: auto;" data-block-id="f7d4c3c20a7b68fbfd209ce579828d27"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" dir="ui" style="z-index: 11; text-align: left;">
+<ul>
+	<li>Whatever you want</li>
+	<li>Try to make it a transparent data structure</li>
+</ul>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 800px; left: 81px; top: 214px;" data-block-id="312abda16387b90b57959f8c75ec7ec1"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;" dir="ui" data-fragment-index="0">
+<pre>@attr.s
+class Display(object):
+  output = attr.ib()
+
+@attr.s
+class Prompt(object):
+  prompt = attr.ib()
+
+
+eff = Effect(Prompt("What's your name? "))
+</pre>
+</div></div></section><section data-id="7174cd71e8738d65cd98ac94637124bb"><div class="sl-block" data-block-type="text" style="width: 671px; left: 49px; top: 69px; height: auto;" data-block-id="fa45bfb92b3b58f8ed22d6c3c10fa9ab"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 11;">
+<h2>Effectful Greet</h2>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 880px; left: 80px; top: 232px;" data-block-id="9e872c7a872301cb221324089b444974"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12; text-align: left;">
+<pre><span style="color:#FF0000">@do</span>
+def greet_eff():
+    name = <span style="color:#FF0000">yield prompt</span>('Enter your name&gt; ')
+    <span style="color:#FF0000">yield display</span>('Hello there, %s!' % (name,))
+    fname = <span style="color:#FF0000">yield prompt</span>("Friend's name? ")
+    <span style="color:#FF0000">yield display</span>('Greets, %s.' % (fname,))
+    <span style="color:#FF0000">yield do_return</span>((name, fname))</pre>
+
+<p> </p>
+</div></div></section><section data-id="e0f2bee0336ad44bf01cc82cef7aaff9"><div class="sl-block" data-block-type="text" style="width: 671px; left: 49px; top: 69px; height: auto;" data-block-id="a10495caa7d54061939f1b93aa231e7a"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 11;" dir="ui">
+<h2>Performing Effects</h2>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 880px; left: 80px; top: 160px;" data-block-id="2d8fc9530dec64009c5669634814c3b1"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12; text-align: left;">
+<pre>def main_eff():
+  eff = greet_eff()
+  <span style="color:#FF0000">dispatcher</span> = ComposedDispatcher(
+    [stdio_dispatcher, base_dispatcher])
+<span style="color:#D3D3D3">  sync_perform(dispatcher, eff)
+</span>
+</pre>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 880px; left: 80px; top: 390px;" data-block-id="632af0d8a836b6fc44fe83e65734bd16"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13; text-align: left;" data-fragment-index="0">
+<pre>@sync_perform
+def <span style="color:#FF0000">perform_display</span>(disp, display_intent):
+  print(display_intent.output)
+
+</pre>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 880px; left: 80px; top: 526px;" data-block-id="b789f563cdcfd4e3f6055b7303f69ef5"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14; text-align: left;" data-fragment-index="1">
+<pre>stdio_dispatcher = TypeDispatcher({
+  Display: <span style="color:#FF0000">perform_display</span>,
+  ...
+})
+</pre>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 116px; top: 304px;" data-block-id="db8d6c88c2f849e47bc867c2cda09e9c"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 15;" data-fragment-index="2">
+<pre><span style="color:#FF0000">sync_perform</span>(dispatcher, eff)</pre>
+</div></div></section><section data-id="0072c208d69f3b5ee7dd53411a206b0f"><div class="sl-block" data-block-type="text" style="width: 671px; left: 49px; top: 69px; height: auto;" data-block-id="f5455cd48007fff0d449c7654a69f756"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;" dir="ui">
+<h2>Testing Effects</h2>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 869px; left: 80px; top: 161px;" data-block-id="88fb90249d3a99d8526647faa2751fca"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11;" dir="ui" data-fragment-index="0">
+<pre>def test_greet_eff():
+  <span style="color:#FF0000">expect</span> = [
+    (Prompt('Enter your name&gt; '),
+​     lambda i: 'radix'),
+    (Display('Hello there, radix!'),
+     noop),
+    (Prompt("Friend's name? "),
+     lambda i: 'ace'),
+    (Display("Greets, ace"),
+     noop),
+  ]
+<span style="color:#A9A9A9">  r = perform_sequence(expect, greet_eff())
+  assert r == ('radix', 'ace')</span></pre>
+
+<p> </p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 800px; left: 80px; top: 557px;" data-block-id="4a4d13a4119ced7aaf4e6c5db79d7aa9"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;" data-fragment-index="2">
+<pre>  r = <span style="color:#FF0000">perform_sequence</span>(expect, greet_eff())
+  assert r == ('radix', 'ace')</pre>
+
+<p> </p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 127px; left: 368px; top: 269px;" data-block-id="b84e9573c5f49f7a74be162d938da20e"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;" data-fragment-index="1">
+<pre><span style="color:#FF0000">radix</span></pre>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 127px; left: 566px; top: 305px;" data-block-id="3e558bf2fa4c37eda50424ecf57453a4"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 15;" data-fragment-index="1">
+<pre><span style="color:#FF0000">radix</span></pre>
+</div></div></section><section data-id="53bd5010d40c6cb7e48bef6b67b10704"><div class="sl-block" data-block-type="text" style="width: 671px; left: 49px; top: 69px; height: auto;" data-block-id="3fb429b8c34010adbcd300af7962d180"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 11;" dir="ui">
+<h2>Bugs</h2>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 940px; left: 13px; top: 185px;" data-block-id="4f0d9dce5ab67d29b53066fa32dd2b0b"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;" dir="ui">
+<pre>AssertionError: Performer not found: Display(output='Greets, ace.')!
+Log follows:
+{{{
+<span style="color:#808080">...</span>
+sequence: Prompt(prompt='Enter your name&gt; ')
+sequence: Display(output='Hello there, radix!')
+sequence: Prompt(prompt="Friend's name? ")
+NOT FOUND: Display(output='Greets, ace.')
+NEXT EXPECTED: Display(output='Gr\xc3\xa8ets, ace.')
+}}}
+</pre>
+</div></div></section><section data-id="cf8b54f3652eb8fd0f3c50f6c86336d1"><div class="sl-block" data-block-type="text" style="width: 800px; left: 80px; top: 270px; height: auto;" data-block-id="56c77f58b7e6359b33cd2be7427c9d3d"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text">
+<h1>Okay</h1>
+</div></div></section><section data-id="1166ae6075b28475e2bb395972b42fef"><div class="sl-block" data-block-type="text" style="width: 800px; left: 80px; top: 270px; height: auto;" data-block-id="c71c2700402ab876b79943f455d214af"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 10;">
+<h1>Twisted effects</h1>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 180px; top: 401px;" data-block-id="f2a01176e6c54721f7ec0010342b292e"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;">
+<p>https://pypi.python.org/pypi/txeffect</p>
+</div></div></section><section data-id="024a4fa1756a2137ab180eebc48074bf"><div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 800px; left: 80px; top: 201px;" data-block-id="6bc33e5e049eb350b75c2fb0b0c7f917"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;">
+<pre>my_eff = parallel([
+    get("http://google.com/"),
+    get("http://yahoo.com/")])
+
+</pre>
+
+<pre><span style="color:#A9A9A9">seq = [
+  parallel_seq([
+    [(get("http://google.com/"),
+      lambda i: "goog!")],
+    [(get("http://yahoo.com/"),
+      lambda i: "Hoo!")]])]
+assert perform_sequence(seq, my_eff)
+       == ("goog!", "Hoo!")</span></pre>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 800px; left: 80px; top: 353px;" data-block-id="a0d43ae116835e71f02e75892d72bf59"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;" data-fragment-index="0">
+<pre>seq = [
+  <span style="color:#FF0000">parallel_seq</span>([
+    [(get("http://google.com/"),
+      lambda i: "goog!")],
+    [(get("http://yahoo.com/"),
+      lambda i: "Hoo!")]])]
+assert perform_sequence(seq, my_eff)
+       == ("goog!", "Hoo!")</pre>
+</div></div>
+<div class="sl-block" data-block-type="text" style="width: 671px; left: 49px; top: 69px; height: auto;" data-block-id="1d1660373b3442a8226ff0e4289c9aca"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 14;" dir="ui">
+<h2>Parallel Effects</h2>
+</div></div></section><section data-id="026a24edab7d074dcbf205c7d4b9fe50"><div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 270px; height: auto;" data-block-id="20340f6680d3f61b889788688675cfe2"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text">
+<h1>Abstraction with Intent</h1>
+</div></div></section><section data-id="60bdc59f743cd463a1b322f9e7ae20b2"><div class="sl-block" data-block-type="text" style="width: 800px; left: 80px; top: 190px; height: auto;" data-block-id="aae43b860dc383c3e7ec45fdceace4c7"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text">
+<h2>Intent Abstraction</h2>
+</div></div>
+<div class="sl-block" data-block-type="text" style="width: 800px; left: 80px; top: 280px; height: auto;" data-block-id="ded0789f2297b1c0785daefa8bd041d8"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" data-has-custom-html="">
+<pre style="text-align: left;">create_cloud_server(credentials, image)
+make_http_request(method, url, ...)
+</pre>
+
+<ul>
+	<li>
+	<pre>WriteBytesToNetwork("POST /servers...")</pre>
+	</li>
+	<li>
+	<pre>HTTPRequest("POST", "rackspace.com", ...)</pre>
+	</li>
+	<li>
+	<pre>CreateCloudServer(credentials, image_id)</pre>
+	</li>
+</ul>
+</div></div></section><section data-id="97dd408d7cfa81d0054db3002166ac41"><div class="sl-block" data-block-type="text" style="width: 900px; left: 30px; top: 58px; height: auto;" data-block-id="4570ac8d1f895c1b917f2474aa85a8ab"><div class="sl-block-content" data-placeholder-tag="h1" style="font-size: 200%; text-align: left;" data-placeholder-text="Text">
+<h1>Don't<br>
+use<br>
+Effects</h1>
+</div></div></section><section data-id="4970b70216316e0436a12adbeb83149c"><div class="sl-block" data-block-type="text" style="width: 800px; left: 80px; top: 270px; height: auto;" data-block-id="a26974ecffe2d1580a06a72d73ac55f3"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text">
+<h1>Haskell Fun Stuff</h1>
+</div></div></section><section data-id="226c6152fe5125aacd61ec564da43552"><div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 960px; height: 296.4px; left: 0px; top: 202px;" data-block-id="4bc94c52b35f40be8335c1e532971633"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="1600" data-natural-height="494" data-src="side-effects-are-a-public-api/1762430-Screen_Shot_2015-09-25_at_9.57.51_AM.png"></div></div></section><section data-id="ec13ca091c7bdc23dde4f5ec28da49f6"><div class="sl-block" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 960px; height: 660.046px; left: 0px; top: 20px;" data-block-id="8d0a1d866c1ada50fe0ff7069a2fa97a"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="1309" data-natural-height="900" data-src="side-effects-are-a-public-api/1760918-Screen_Shot_2015-09-24_at_11.55.05_PM.png"></div></div></section><section data-id="71f96de95b78f917e688abe1dfa58906"><div class="sl-block" data-block-type="text" style="width: 800px; left: 80px; top: 270px; height: auto;" data-block-id="c802d33b5b9124ba2d03297fd27593b6"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text">
+<h1>Thanks, Cirdec!</h1>
+</div></div></section><section data-id="3aac796b1391ed1581f776c8b101f60d"><div class="sl-block" data-block-type="text" style="width: 671px; left: 49px; top: 138px; height: auto;" data-block-id="2ef1cfc35c2b0a074fdde604a00765a6"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;" dir="ui">
+<h2>Free Monads</h2>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 869px; left: 80px; top: 350px;" data-block-id="332c24a721fc87ca7e5311167534527a"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;" dir="ui" data-fragment-index="0">
+<pre>free        - Control.Monad.Free
+operational - Control.Monad.Operational
+</pre>
+</div></div></section><section data-id="c6464831cdc269ee484b85e9c55b80ae"><div class="sl-block" data-block-type="text" style="width: 671px; left: 49px; top: 68px; height: auto;" data-block-id="ec38d9a01f5cabe1fa2de2d81e9c8779"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 11;" dir="ui">
+<h2>The Effects</h2>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 869px; left: 80px; top: 210px;" data-block-id="1cfa8addc9aca64e03c958838c0b18ea"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;" dir="ui"><pre>data Intent result where
+    Prompt :: String -&gt; Intent String
+    Display :: String -&gt; Intent ()
+<span style="font-size:36px">
+</span><span style="color:#A9A9A9">type MyEffect a = Program Intent a
+
+prompt p = singleton (Prompt p)
+display o = singleton (Display o)
+</span>
+</pre></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 659px; left: 80px; top: 361px;" data-block-id="d1376f1bf0d5cccd01b69ea38c223433"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;" data-fragment-index="0">
+<pre>type MyEffect a = Program Intent a
+</pre>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 80px; top: 433px;" data-block-id="18eeeef619e8cfbc25ff6f635c8cb492"><div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14;" data-fragment-index="1">
+<pre>prompt p = singleton (Prompt p)
+display o = singleton (Display o)
+</pre>
+</div></div></section><section data-id="ad8b687c19a452b88e3c4e2040aa5937"><div class="sl-block" data-block-type="text" style="width: 671px; left: 49px; top: 68px; height: auto;" data-block-id="97363831d3c65fb2382e139519d112bc"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 11;" dir="ui">
+<h2>The Program</h2>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 895px; left: 65px; top: 210px;" data-block-id="2d73680705841d3ec116b90f1c7badb5"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;" dir="ui">
+<pre>greet :: MyEffect (String, String)
+greet = do
+    name &lt;- prompt "Enter your name&gt; "
+    display ("Hello there, " ++ name ++ "!")
+    fname &lt;- prompt "Friend's name? "
+    display ("Greets, " ++ fname ++ ".")
+    return (name, fname)
+<font face="Open Sans, sans-serif"><span style="font-size:36px; white-space:normal">
+</span></font></pre>
+</div></div></section><section data-id="4d3757277422606c8fa8dbac3d6bc9ee"><div class="sl-block" data-block-type="text" style="width: 671px; left: 49px; top: 68px; height: auto;" data-block-id="9b678760b100c98a3bb01e74020ff34c"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 11;" dir="ui">
+<h2>The Test</h2>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 895px; left: 65px; top: 210px;" data-block-id="21adae3109744718a37ecabd0c8ab7f9"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;" dir="ui">
+<pre>testGreet prog =
+    Right prog &gt;&gt;=
+    checkPrompt "Enter your name&gt; " "radix" &gt;&gt;=
+    checkDisplay "Hello there, radix!" &gt;&gt;=
+    checkPrompt "Friend's name? " "ace" &gt;&gt;=
+    checkDisplay "Greets, ace." &gt;&gt;=
+    checkReturn ("radix", "ace")
+</pre>
+</div></div></section><section data-id="24585c891ecc9a048b56f9be21a60340"><div class="sl-block" data-block-type="text" style="height: auto; width: 880px; left: 50px; top: 190px;" data-block-id="c258d5c4d40d4537f903395f2c87dc68"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;" dir="ui">
+<pre>checkPrompt :: String -&gt; String -&gt; MyEffect a
+            -&gt; Either String (MyEffect a)
+checkPrompt <span style="color:#FF0000">expected response prog</span> =
+  case <span style="color:#FF0000">view prog</span> of
+    (<span style="color:#FF0000">Prompt p</span> :&gt;&gt;= cont)
+      | <span style="color:#FF0000">p == expected</span> -&gt; Right (<span style="color:#FF0000">cont response</span>)
+    (intent :&gt;&gt;= cont)
+      -&gt; Left $ "Expected " ++ show expected 
+             ++ " Got (" ++ show intent ++ ")"<span style="font-size:36px">
+</span></pre>
+</div></div></section><section data-id="276fedc4d4a66fc96cfec56259bd3c6a"><div class="sl-block" data-block-type="text" style="width: 800px; left: 80px; top: 214px; height: auto;" data-block-id="0e091f234e1edc1c0a85fa54099c51b7"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text">
+<h1>Performance of<br>
+Free Monads</h1>
+</div></div></section><section data-id="eff6641a73b05493859eaed20ef3a808"><div class="sl-block" data-block-type="text" style="width: 928px; left: 16px; top: 35px; height: auto;" data-block-id="bd1bfa600ec06be41ab49d337928814e"><div class="sl-block-content" data-placeholder-tag="h1" style="font-size: 200%; text-align: left; z-index: 11;" data-placeholder-text="Text">
+<h1>Isolate</h1>
+
+<h1>your</h1>
+
+<h1>side-effects</h1>
+</div></div></section><section data-id="e4eff3d8cdfaed3c76fdd4f743ff0bb1"><div class="sl-block" data-block-type="text" style="width: 928px; left: 16px; top: 71px; height: auto;" data-block-id="8a92c095575ade9a1cabfcacf25144f8"><div class="sl-block-content" data-placeholder-tag="h1" style="font-size: 200%; text-align: center; z-index: 11;" data-placeholder-text="Text">
+<h1>Questions?</h1>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 180px; top: 331px;" data-block-id="9a7d52174cb94c44a1d55959f9e8221e"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;">
+<p>https://pypi.python.org/pypi/effect</p>
+
+<p><br>
+http://git.io/vnbNu - Haskell example</p>
+
+<p> </p>
+
+<p>@radix</p>
+</div></div></section>
+			</div>
+		</div>
+
+		<script>
+			var SLConfig = {"deck": {"id":497199,"slug":"side-effects-are-a-public-api","title":"Side Effects are a Public API","description":"","visibility":"all","published_at":"2015-09-22T18:33:00.561Z","sanitize_messages":null,"thumbnail_url":"https://s3.amazonaws.com/media-p.slid.es/thumbnails/secure/b69ca4/decks.jpg","view_count":1,"user":{"id":378890,"username":"radix","name":null,"description":null,"thumbnail_url":"https://www.gravatar.com/avatar/d0f15ff3ede0eb78fa1a971b8223b8ca?s=140\u0026d=https%3A%2F%2Fs3.amazonaws.com%2Fstatic.slid.es%2Fimages%2Fdefault-profile-picture.png","pro":true,"enterprise":false,"enterprise_manager":false,"settings":{"id":215046,"present_controls":true,"present_upsizing":true,"present_notes":true},"registered":true},"background_transition":"slide","transition":"slide","theme_id":null,"theme_font":"montserrat","theme_color":"white-blue","auto_slide_interval":0,"comments_enabled":true,"forking_enabled":true,"rolling_links":false,"center":false,"should_loop":false,"share_notes":null,"rtl":false,"version":2,"notes":{"819cf33d7a258167208c5ee193c53964":"Chris Armstrong\nhere talk abt pure FP at your dayjob.\n\nLots peeps here enjoy FP, few in greater industry use it at work. \nUse imperative langs instead.\nEven fewer do *pure* fp with tracked effects.\nGet to that in sec.","e5a3077f331929521a5c7d6369179252":"But lots are necessary.\ninternet comms; displaying; reading input; state-sharing w/threads\n\ndeal w/ sfx by reifying. IOW, fx=first class objects. This = Haskell IO types.\n\n\"print\" func doesn't print. returns val showing *intent* to print.\nReturning from main: haskell runtime  performs. \n\nWhy","772fa3a9f230a2b3644f88d0ba5f7c01":"Raise hands: imperative lang at work?\n\nRackspace does almost all in Py. Didn't stop me! Don't stop you!\n\nNot that hard. Lots of libs for pop. langs.","aee626cb2697dab78f988c21261887fe":"functional.js differentiates itself from underscore.js over argument order.\nNeat FP langs that compile to JS.\nJava: Clojure/Scala.\n\nThese give you a nice stdlib for FP/DS.\nBut implicit effects are still common. These libs don't help. Even CLJ/OCaml/Scala/Racket.","404b95ce36525c7affb8006393661694":"Rest of talk, refer as YOLO.\nTransitive verb. Do it to global state or external interfaces.\n\nExamples:\n\n\u003cclick\u003eread\n\u003cclick\u003eread, disbelief\n\nhow to deal side-fx w/o \"doin' a YOLO\"? first try not to have them. lot of side-fx replaced with better factoring or functional DS.\n","322686eda7407e9dcf2bb6e7ae49c13f":"i. s. sense, more modular. same reasons any PFP more modular. compose/equational reasoning\n\nBenefit I care about is testing. More modular, more testable.\n\nHate mocks, right? Especially if Py. terrible API.\n Let's not do that.","76bd5b061bc29ffc143a5aa4d17e09da":"Show how I did w/ python, how it's implemented so you can too, in whatever lang.\n\nReal simple. Love to see more libs in more langs.\n\nSome better than others at giving nice syntax, but usually it can be done without being too nasty.","7cc26dc3c6dbe2bd423cfe26e56b598d":"Gonna show cool trick for testing in Haskell. Haskell's IO types aren't actually testable. They're first-class, but you can't introspect them. Recently came up with a nifty API for testing them. Needs more work.\n\nLater. Make fun of my code.\n","88d7e59dc6f0f8b6b73f5b6c584cf5c8":"Let's look at code already.\nStart with normal, YOLO-y function.\nRequest input. Print out greeting. More stuff.\nHow test?","07d8e11d06251d65a59870fde67ca5fe":"Bam.\nTold you mock module was bad. Didn't even bother fitting this code on screen after pasting. Gross.\n\nBasically, monkeypatch funcs, do bunch of garbage, mk sure called right args, return expected vals.\n\nWhat we _actually_ want to say is this","f3663576eecd23334f54eda2b577052e":"When run, certain sequence fx performed, specific order.  Then check final result.\n\nFunny: last slide didn't even ensure order was right.\n\nIf change code to change order, test should fail. Order matters big-time.","68481301f5f3ddb030a596b2f8d94a35":"Title of talk.\nSFX need tested asmuchas return value of funcs. \nChange effects/order, might break something.\nBy definition, SFX observable.\nWhen observable, consider in defining contract.\n\nConsider multiple locks. Important to lock in correct order.\n\n","4fee94992742ee057d1f0de884170f64":"Like to think of SFX as a log. You end up with a log of specific effects that occurred when a function's effects are performed.\n\nThat's why my lib's testing API works the way it does. but getting ahead. Gotta show you effectful code.","61f859b51ed876d651806600b60ba92e":"compare.\n\n2 ways to express. This nice.\n@do, at top. Named haskell.\nEnables yield.\n\nprompt/display return Effects. Yield effect, resumed when done.\nEnd, yield special `do_return` to provide return val. Unnecessary in Py3\n\nLast: @do makes func return Effect.\n\nI'll show you lower level.","7856517b69f71e62fce0556b0d9b5960":"staircase. familiar to haskellers seeing desugared `do`.\n\nEffects have `on`. Like bind. Give func, returns new Effect. Liiitle bit different from bind, because has error handling, and allows returning pure. Not that important.\n\nTime to show you Effect.","51648af73a74e0eb3b9694b674140b74":"Almost exact def. Error handling glossed over.\n\nJust an intent and some callbacks. This could even be simpler but I flattened successive callbacks for performance.\n\nOh, but what's an intent?","7765227bca184475cd212ac2cccf72f1":"Whatever you want.\n\n*encourage* immutable, transparent DS. Support ==. Necessary for testing API.\n\u003cclick\u003e\nuse attrs. helps define.\nPrompt and Display. No behavior. Only simple public attrs.\nDon't know how to do.\n\nThink about effectful greet...","7174cd71e8738d65cd98ac94637124bb":"Since this just returns Effect, doesn't know how to perform!\n\nImportant part of Effect design. Forced separation between performance and intent. More modular. sync/async; enables testing API. Just different performers for same intents.\n\nShow you how to perform.","e0f2bee0336ad44bf01cc82cef7aaff9":"Not interesting; cover so you know\n\nDispatcher find performer given intent Usually by type\n\n\u003cC\u003e\nDisplay intent performer\nTHIS where YOLO. Need test old-fashioned way, mocking/whatever. Only once.\n\u003cC\u003e\nConstruct dispatcher. TypeDisp.\n\u003cC\u003e\nsync_perform.\ncall once.","0072c208d69f3b5ee7dd53411a206b0f":"Finally Testing\n\n*could* come up w/custom perf for tests\noriginally did\ncame up with better API\n\u003cC\u003e\ndescribe test\n- seq; tup; lambda; noop\n\u003cC\u003e\nnotice result feed in to next eff.\n\u003cC\u003e\nperform_seq. interpreter. utility over sync_perform. disp based on seq.\n","53bd5010d40c6cb7e48bef6b67b10704":"- Cool thing about test API!\n- Just a bit of polish, not important to core system\n- Got something wrong: misspelled \"Greets\".\n- describe log. `sequence`, `NOT FOUND`, `NEXT EXPECTED`.\n- pretty proud of this.","cf8b54f3652eb8fd0f3c50f6c86336d1":"Okay, core Effect idea + how we test them.\nIf that's all take away, p good.\n\nNext, few more interesting things.\nThen Haskell implementation.","1166ae6075b28475e2bb395972b42fef":"Know what Twisted is?\n\n- async network lib.\n- main app I write uses Twisted. needed integr.\n- Deferreds (Promises).\n- Similar to Effect. \n- Deferred only result; Effect intent and result.\n- Deferred mutable, Effect pure.\n- put integration code in txeffect","024a4fa1756a2137ab180eebc48074bf":"- predefined intent \"ParallelEffects\"\n- list of effects; run in parallel\n- multiple ways to run stuff in parallel\n- built in threads\n- asynchronous parallel in txeffect\n- tests are just as agnostic use sites\n\u003cC\u003e\nuse a utility `parallel_seq`\n","026a24edab7d074dcbf205c7d4b9fe50":"Often find myself using Effect to create abstractions over Effects.","60bdc59f743cd463a1b322f9e7ae20b2":"- create a cloud server, could impl w/ WriteBytesToNetwork\n- Might even use a `make_http_request` func that itself calls WriteBytesToNetwork\n- But tests are ugly! Low-level\n- Instead, add HTTPRequest intent-higher level. Performer returns lower-level effect.\n- Go further, CCS intent\nOne last pt","97dd408d7cfa81d0054db3002166ac41":"Final point. Don't use effects if you don't need to.\n\nSimple data is easier to test than things with functions. Effects encode behavior, not just data.\n\nStep?","4970b70216316e0436a12adbeb83149c":"Now on to the Haskell impl.\n\nIf you looked at talk desc, you see I mention something about interesting Haskell content...","226c6152fe5125aacd61ec564da43552":"- enthusiastic about Haskell, novice.\n- struggling with some type stuff in coming up with the testing API.\n- so, under pressure w/ a deadline...","ec13ca091c7bdc23dde4f5ec28da49f6":"Posted to Stack Overflow.\n\nThankfully, a day later, an extremely prolific SOer named Cirdec saved my ass.\n\n","71f96de95b78f917e688abe1dfa58906":"So thanks, Cirdec!\n","3aac796b1391ed1581f776c8b101f60d":"F. Monad popular lately.\n- simple: monads w/o behavior. record instruction + bound function.\n\u003cC\u003e\n- `free` pkg impl. basic idea.\n- def little data structure, describing DSL\n- `operational` another one, makes defining the DSL somewhat nicer\n- doesn't matter which, can do this w/ both.","c6464831cdc269ee484b85e9c55b80ae":"Here's DSL. Called it Intent. Same as before.\n\u003cC\u003e\n`Program` typ.cons. (operational) wraps DSL into F. Monad.\n\u003cC\u003e\nlift intents to functions returning monadic values w/ `singleton`\n\n","ad8b687c19a452b88e3c4e2040aa5937":"enough to define the prog.\nsame as python ver.\n(describe)","4d3757277422606c8fa8dbac3d6bc9ee":"Here's where Cirdec helped.\nvery similar to perform_sequence.\nbuild up an interpreter that expects specific sequence. custom-crafted for this exact program.\n\nnot super happy w/ formulation. prefer single `check` function instead of 1/intent.","24585c891ecc9a048b56f9be21a60340":"one of the checker functions.\n- takes expected, response, prog.\n- p.matches on prog\n- if next is prompt, and prompt matches, call continuation.\n- also checkDisplay and checkReturn. Similar.\n\nAnyone help me make this polymorphic? ","276fedc4d4a66fc96cfec56259bd3c6a":"- If you familiar, may know F.Monads slower.\n- Can work around this w/ prompt\u0026display in typeclass.\n- instance for IO, instance for free monad.\n- avoid overhead in production.","eff6641a73b05493859eaed20ef3a808":"Okay, that's everything.\nIsolate your side-effects.\nMake them testable.\nStop mocking.\nThanks.","e4eff3d8cdfaed3c76fdd4f743ff0bb1":"Questions?"}}};
+			SLConfig.current_user = {
+				name: "",
+				username: "radix",
+				pro: true
+			};
+		</script>
+
+		<script src="lib/head.min.js"></script>
+		<script src="lib/reveal.min.js"></script>
+		<script>
+			// Make Slides speaker notes available in the reveal.js speaker view
+			if( SLConfig.deck.notes ) {
+				[].forEach.call( document.querySelectorAll( '.reveal .slides section' ), function( slide ) {
+
+					var value = SLConfig.deck.notes[ slide.getAttribute( 'data-id' ) ];
+					if( value && typeof value === 'string' ) {
+						slide.setAttribute( 'data-notes', value );
+					}
+
+				} );
+			}
+
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				mouseWheel: false,
+				showNotes: SLConfig.deck.share_notes,
+
+				autoSlide: SLConfig.deck.auto_slide_interval || 0,
+				autoSlideStoppable: true,
+
+				rolling_links: SLConfig.deck.rolling_links || true,
+				center: SLConfig.deck.center || false,
+				loop: SLConfig.deck.should_loop || false,
+				rtl: SLConfig.deck.rtl || false,
+
+				transition: SLConfig.deck.transition,
+				backgroundTransition: SLConfig.deck.background_transition,
+
+				maxScale: 2,
+
+				dependencies: [
+					{ src: 'lib/reveal-plugins/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'lib/reveal-plugins/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'lib/reveal-plugins/highlight/highlight.js', async: true, callback: function() { hljs.initHighlighting(); hljs.initHighlightingOnLoad(); } },
+					{ src: 'lib/reveal-plugins/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+		</script>
+
+		
+
+	</body>
+</html>

@@ -2,7 +2,7 @@
 
 This folder collects slides from the [Strange Loop](http://thestrangeloop.com) 2015 [sessions](http://thestrangeloop.com/2015/sessions.html).
 
-If you try to download slides and see a "Blob too big" error, then the file is too large for GitHub to serve through it's web API. In that case, you should clone the repo:
+If you try to download slides and see a "Blob too big" error, then the file is too large for GitHub to serve through its web API. In that case, you should clone the repo:
 
 ```git clone https://github.com/strangeloop/StrangeLoop2015.git```
 

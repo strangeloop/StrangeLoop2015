@@ -3,55 +3,277 @@
    (Live captioning by White Coat Captioning @whitecoatcapxg) 
    
    >> Hello, can everyone hear me? I guess you can't actually answer because I can't even see you:
+   
    AUDIENCE MEMBER:  Hi Gary!
-   >> Hello. All right, I am Gary Bernhardt, this is a talk called Ideology. I want to contextualize this talk with something that I think is very culturally relevant, the thing that you see on the screen, the belief that many of us have that we are not real programmers for some amorphous definition of real. The danger or the terrible thing about this belief is that it functions even if you don't know that you believe it. And the wonderful thing about the term that we have for it, imposter syndrome, is that upon hearing the term, people can suddenly realize that they've had this belief for years or in some cases decades and that that it was, working even though they didn't know they had it. This talk isn't about imposter syndrome but we're going to look for this kind of belief often that programmers make claims like I write tests so I don't need types. We're going to look for people believe when they say things like this. The title as I said, is ideology, I am Gary Bernhardt, and when I use the word ideology in this talk, I mean it in a very specific way. I don't mean the cable news network definition or the popular pop culture definition of just political belief and to see what I mean we'll take a brief detour to Donald Rumsfeld before we get into computers. He once said something about known knowns, unknown unknowns, which earned him ridicule because he made fine-grained differentials between the words. There are things in the world that we know and we know that we know them. So known knowns, for example, Turing equivalent computers cannot solve the halt prom. When given a second arbitrary program decides when that second program terminates or not we know this, we have proofs going back to 1936. It's a known known. There are other things that we don't know, but we at least know that we don't know them. Known unknowns. For example, does P equal NP. We know this question very well. So it is a known unknown. And finally, there are things that we don't know and we don't even know that we don't realize it. Unknown unknowns. And this is what Rumsfeld was talking about because he was talking about war and the classic example of this is that the Japanese attack on Pearl Harbor, it's the concept that the attack wasn't something that they were worried about.
-   And this is where Rumsfeld stopped, because he's not a programmer and he is happy to see two binary variables and only three entries in a table.
+   
+   >> Hello. All right, I am Gary Bernhardt, this is a talk called Ideology. I want to contextualize this talk with something
+   that I think is very culturally relevant, the thing that you see on the screen, the belief that many of us have that we are
+   not real programmers for some amorphous definition of real. The danger or the terrible thing about this belief is that it
+   functions even if you don't know that you believe it. And the wonderful thing about the term that we have for it, imposter
+   syndrome, is that upon hearing the term, people can suddenly realize that they've had this belief for years or in some
+   cases decades and that that it was, working even though they didn't know they had it. This talk isn't about imposter
+   syndrome but we're going to look for this kind of belief often that programmers make claims like I write tests so I don't
+   need types. We're going to look for people believe when they say things like this. The title as I said, is ideology, I am
+   Gary Bernhardt, and when I use the word ideology in this talk, I mean it in a very specific way. I don't mean the cable 
+   news network definition or the popular pop culture definition of just political belief and to see what I mean we'll take a
+   brief detour to Donald Rumsfeld before we get into computers. He once said something about known knowns, unknown unknowns,
+   which earned him ridicule because he made fine-grained differentials between the words. There are things in the world that
+   we know and we know that we know them. So known knowns, for example, Turing equivalent computers cannot solve the halt
+   prom. When given a second arbitrary program decides when that second program terminates or not we know this, we have proofs
+   going back to 1936. It's a known known. There are other things that we don't know, but we at least know that we don't know
+   them. Known unknowns. For example, does P equal NP. We know this question very well. So it is a known unknown. And finally,
+   there are things that we don't know and we don't even know that we don't realize it. Unknown unknowns. And this is what
+   Rumsfeld was talking about because he was talking about war and the classic example of this is that the Japanese attack on
+   Pearl Harbor, it's the concept that the attack wasn't something that they were worried about.
+   
+   And this is where Rumsfeld stopped, because he's not a programmer and he is happy to see two binary variables and only
+   three entries in a table.
+   
    [laughter]
-   >> But this being Strangeloop, let's scoot this up, and the obvious fourth entry their is things that you know but you do not know that you know them and this is what I mean by the worked ideology in this talk.
+   
+   >> But this being Strangeloop, let's scoot this up, and the obvious fourth entry their is things that you know but you do
+   not know that you know them and this is what I mean by the worked ideology in this talk.
+   
    >> This is the type of belief that imposter syndrome is, it functions even though you don't know it's there.
-   >> So now we can finally get to computer things. I want to begin for our first example with a pair of beliefs, a pair of claims that are often made by static language advocates versus dynamic language advocates, but that means I have to define what I mean by static, so in this talk we're talking about ML families of languages, we're talking about Haskell, we're talking about Rust maybe to a lesser extent. When I say these things, I don't mean C and Java and other curly braced languages.
-   >> So these two statements that people make about types and tests. The first is going to be uttered by a hypothetical static language advocate and they say Python needs tests because there's no type checker. I've everyone's heard this before. This is a thing that people say. On the other hand, dynamic language advocates will sometimes say I write tests anyway, so I don't need a type checker and these are sort of exact opposite statements. So either tests and types are deeply equivalent in a way that we've never really discovered but somehow these people know, or somebody is wrong. And I think it's the second thing.
+   
+   >> So now we can finally get to computer things. I want to begin for our first example with a pair of beliefs, a pair of
+   claims that are often made by static language advocates versus dynamic language advocates, but that means I have to define
+   what I mean by static, so in this talk we're talking about ML families of languages, we're talking about Haskell, we're
+   talking about Rust maybe to a lesser extent. When I say these things, I don't mean C and Java and other curly braced
+   languages.
+   
+   >> So these two statements that people make about types and tests. The first is going to be uttered by a hypothetical
+   static language advocate and they say Python needs tests because there's no type checker. I've everyone's heard this
+   before. This is a thing that people say. On the other hand, dynamic language advocates will sometimes say I write tests
+   anyway, so I don't need a type checker and these are sort of exact opposite statements. So either tests and types are
+   deeply equivalent in a way that we've never really discovered but somehow these people know, or somebody is wrong. And I
+   think it's the second thing.
+   
    [laughter]
-   So let's dig into the way that these two programmers think about correctness, because correctness is really what we're talking about here, and the way that the languages that they use inform their understanding of what correctness even is, and we'll start with a dynamic language programmer. We're going to use an example of converting an RGB color to an HSV function. We're not even going to look at the body, it just does some math on the color components and hopefully a dynamic language programmer is going to write some tests. Maybe they write a test for a medium gray, a test for a white, a test for a black, and hopefully some nongray-scale colors, as well, and they end up with all these points where they have written these very specific tests. They show the behavior of the system in this one exact situation and from this, they infer that now the program is correct in this -- for this sort of region of program behavior of RGB inputs.
-   >> Around this, there is this region of undefined behavior that the dynamic languages forces to be a valid are program in the sense that it will run, but the programmer has not considered what will happen. Things like what if there's a negative number number? Hopefully the programmer thought of that and wrote a test. Probably a lot of people would not. What if there's a number greater than 1, because the color components are 0 to 1 value range. What if we pass in integers instead of floats? Well, if it's JavaScript there is no integers so it doesn't matter, if it's Python two. There are integers. So in Python it actually depends on the version of the language.
-   >> What if we pass in an extra element in the tuple will? What if we pass in null this is the ever-present question that most programmers don't consider for most functions because it would be exhausting to do so and what happens if we pass? Something like a date time? Well, Ruby's date time defines most of the mathematical operators for reasons.
+   
+   So let's dig into the way that these two programmers think about correctness, because correctness is really what we're
+   talking about here, and the way that the languages that they use inform their understanding of what correctness even is,
+   and we'll start with a dynamic language programmer. We're going to use an example of converting an RGB color to an HSV
+   function. We're not even going to look at the body, it just does some math on the color components and hopefully a dynamic
+   language programmer is going to write some tests. Maybe they write a test for a medium gray, a test for a white, a test for
+   a black, and hopefully some nongray-scale colors, as well, and they end up with all these points where they have written
+   these very specific tests. They show the behavior of the system in this one exact situation and from this, they infer that
+   now the program is correct in this -- for this sort of region of program behavior of RGB inputs.
+   
+   >> Around this, there is this region of undefined behavior that the dynamic languages forces to be a valid are program in
+   the sense that it will run, but the programmer has not considered what will happen. Things like what if there's a negative
+   number number? Hopefully the programmer thought of that and wrote a test. Probably a lot of people would not. What if
+   there's a number greater than 1, because the color components are 0 to 1 value range. What if we pass in integers instead 
+   of floats? Well, if it's JavaScript there is no integers so it doesn't matter, if it's Python two. There are integers. So
+   in Python it actually depends on the version of the language.
+   
+   >> What if we pass in an extra element in the tuple will? What if we pass in null this is the ever-present question that
+   most programmers don't consider for most functions because it would be exhausting to do so and what happens if we pass?
+   Something like a date time? Well, Ruby's date time defines most of the mathematical operators for reasons.
+   
    [laughter]
-   And so this may actually return a value and of course in JavaScript this will return nonsense, because all expressions in JavaScript return something.
+   
+   And so this may actually return a value and of course in JavaScript this will return nonsense, because all expressions in
+   JavaScript return something.
+   
    [laughter]
-   So this is the reality of dynamic language programming which everyone who uses those languages knows but doesn't like to talk about. Of course there is this central region of behavior and so maybe we think that.7 will give us the correct conversion or.3 even though we never wrote tests for those, so the reality is that that behavior is also undefined in the sense that we don't have any concrete evidence of what it's going to do. We just make that inference in our minds that these tests, these points turn into a generalized region of program behavior. Usually that belief is correct. Sometimes it's not and that's why bugs happen and the sort of way to summarize all of this is that tests are only examples. They do not establish categories of behavior. They can't do it.
+   
+   So this is the reality of dynamic language programming which everyone who uses those languages knows but doesn't like to
+   talk about. Of course there is this central region of behavior and so maybe we think that.7 will give us the correct
+   conversion or.3 even though we never wrote tests for those, so the reality is that that behavior is also undefined in the
+   sense that we don't have any concrete evidence of what it's going to do. We just make that inference in our minds that 
+   these tests, these points turn into a generalized region of program behavior. Usually that belief is correct. Sometimes
+   it's not and that's why bugs happen and the sort of way to summarize all of this is that tests are only examples. They do
+   not establish categories of behavior. They can't do it.
+   
    Humans imagine that they do it, but that is -- that is not actually true.
-   So that is dynamic the dynamic language programmer's sort of view of correctness. They have to make this sort of leap of faith that is not justified by any kind of objective reasoning. #.
+   
+   So that is dynamic the dynamic language programmer's sort of view of correctness. They have to make this sort of leap of
+   faith that is not justified by any kind of objective reasoning. #.
+   
    Now, let's turn to static languages. If you think I'm picking on dynamic language programmers, just wait.
+   
    [laughter]
-   A static language programmer is going to start by, unsurprisingly defining some types. Here we have an RGB type that's 3 doubles. HSV type that's three doubles. We'll define a function who is type is RGB to HSV. Returns an HSV tuple. Not surprising and now we have in this same region of programming behavior that the dynamic programmer had. And again it contains things like 000, 111, we believe that the conversion will happen correctly for all these values.
-   But that undefined space is now impossible, and this is the most obvious implication of a static type system. It makes all of these -- all of those undefined, all of those undesirable situations compilation errors, so we cannot pass in ha fourth value in the tuple, because this is not a legal program. In a dynamic language we have to ask ourselves what are the semantics of this and we have to ask ask that for an infinite um in of questions. Likewise for null which these languages don't have, so that problem goes away. Likewise for things like passing in a date time or passing in an HSV when an RGB is expected. All the standard static typing stuff.
-   But what about these cases? Negative numbers and numbers greater than 1? Well, if you're in Idris, then you, I don't know, write a proof somehow, I don't really understand how that happens. But by magic a compiler can make these impossible situations. But in most static functional languages we don't have that capability. So there's this region of the category of behavior that we told the type system is allowed. That is actually wrong. And so what we're seeing here is types are only categories, and specifically the granularity of the categories is limited by the type system and in current languages it's still quite coarse. Current mainstream functional languages.
-   So hopefully the static language programmer writes some tests in there, and characterizes that behavior, because that is the only path they have left. The type system cannot do it. And they probably use quick check or something fansly like that, as opposed to the more vulgar tools that are used in most dynamic languages, but still, they need tests and they have to make that same inference, that same jump to believing that they've characterized that region even though they only have examples.
-   Quick check just makes more examples. So these are two very different ways to think about programming and the languages force you into these ways of thinking about programming and specifically about correctness. And now we can go back to these things that these two people arguing with these other say: When a static language programmer says that Python needs tests because there's no type checker, I think it is motivated by a belief that they won't state, they probably won't even own up to, but I think the belief that's functioning here is that correctness comes exclusively from categories, which would be true if you had an arbitrarily powerful type system which you you don't.
-   Now, you won't get them to say this, they will deny this, and that is how these kinds of beliefs function, they structure the things you're saying and maybe this one is not quite so obvious but I think for the dynamic language programmer, it is much more obvious that they believe that correctness comes from examples because they've never used a static type system so when they think that this other thing that people use to try to form beliefs why correctness, they can only imagine it in terms of what they know, tests, which are a totally different thing. So they say things like I write tests anyway so I don't need a type checker because they've incorrectly imagined what a type checker is.
-   Now both of these statements and beliefs are extreme versions partly because I have to kind of make things move along quickly, but also because I think that these are real beliefs and if that seems like a strange idea to you, just go read Hacker News for a few days and you'll see people saying these things. They'll use more words and probably be meaner but they'll be saying these things.
-   Now I want to accelerate because I don't want to slowly deconstruct all this stuff for hours. So let's talk about null briefly. In a dynamic language null lives within that specifically undefined space. The place where a tuple lives. If we wrote all those tests, we'd have just so many tests that usually didn't provide any value show we just live with the uncertainty and of course the way that manifests as anyone who has built a large system into a dynamic language knows is that one function generates a null and then it propagates and propagates and propagates and propagates through function calls and then eventually someone tries to add 4 to it or something and you get an exception and the exception occurs far away from the source of the null and the source of the null is no longer in the trace-back. So there's very little useful debugging information present. Of course in a static language this problem goes away because null is part of that impossible place, there is no such thing as null, so we don't have to think about it.
-   And the reaction when people encounter this idea for the first time, some of them say, but I need null to program. Well, that's what they say. I need null. People say this now, in fact this was motivated by a Hacker News thread when I was preparing this talk. This is a thing that I actually saw someone say when I was working on this talk. And this only makes sense that you believe that null is the only way to represent absence, because what you really need to do is represent nothingness or the absence of a value. But if you only know one way to do it, then you sort of make this leap and say, well that must be the only way, null must be the only way.
-   But you won't get them to say the bottom thing, right, because if they even realized that they believed that, they could have asked the static language programmer is that actually true, how do you represent nothingness. But they just said programming in that language is impossible, that language you use, which is a very silly thing to say.
+   
+   A static language programmer is going to start by, unsurprisingly defining some types. Here we have an RGB type that's 3
+   doubles. HSV type that's three doubles. We'll define a function who is type is RGB to HSV. Returns an HSV tuple. Not
+   surprising and now we have in this same region of programming behavior that the dynamic programmer had. And again it 
+   contains things like 000, 111, we believe that the conversion will happen correctly for all these values.
+   
+   But that undefined space is now impossible, and this is the most obvious implication of a static type system. It makes all
+   of these -- all of those undefined, all of those undesirable situations compilation errors, so we cannot pass in ha fourth
+   value in the tuple, because this is not a legal program. In a dynamic language we have to ask ourselves what are the
+   semantics of this and we have to ask ask that for an infinite um in of questions. Likewise for null which these languages
+   don't have, so that problem goes away. Likewise for things like passing in a date time or passing in an HSV when an RGB is
+   expected. All the standard static typing stuff.
+   
+   But what about these cases? Negative numbers and numbers greater than 1? Well, if you're in Idris, then you, I don't know,
+   write a proof somehow, I don't really understand how that happens. But by magic a compiler can make these impossible
+   situations. But in most static functional languages we don't have that capability. So there's this region of the category 
+   of behavior that we told the type system is allowed. That is actually wrong. And so what we're seeing here is types are 
+   only categories, and specifically the granularity of the categories is limited by the type system and in current languages 
+   it's still quite coarse. Current mainstream functional languages.
+   
+   So hopefully the static language programmer writes some tests in there, and characterizes that behavior, because that is 
+   the only path they have left. The type system cannot do it. And they probably use quick check or something fansly like 
+   that, as opposed to the more vulgar tools that are used in most dynamic languages, but still, they need tests and they have 
+   to make that same inference, that same jump to believing that they've characterized that region even though they only have 
+   examples.
+   
+   Quick check just makes more examples. So these are two very different ways to think about programming and the languages 
+   force you into these ways of thinking about programming and specifically about correctness. And now we can go back to these 
+   things that these two people arguing with these other say: When a static language programmer says that Python needs tests 
+   because there's no type checker, I think it is motivated by a belief that they won't state, they probably won't even own up 
+   to, but I think the belief that's functioning here is that correctness comes exclusively from categories, which would be 
+   true if you had an arbitrarily powerful type system which you you don't.
+
+   Now, you won't get them to say this, they will deny this, and that is how these kinds of beliefs function, they structure 
+   the things you're saying and maybe this one is not quite so obvious but I think for the dynamic language programmer, it is 
+   much more obvious that they believe that correctness comes from examples because they've never used a static type system so 
+   when they think that this other thing that people use to try to form beliefs why correctness, they can only imagine it in 
+   terms of what they know, tests, which are a totally different thing. So they say things like I write tests anyway so I 
+   don't need a type checker because they've incorrectly imagined what a type checker is.
+   
+   Now both of these statements and beliefs are extreme versions partly because I have to kind of make things move along 
+   quickly, but also because I think that these are real beliefs and if that seems like a strange idea to you, just go read 
+   Hacker News for a few days and you'll see people saying these things. They'll use more words and probably be meaner but 
+   they'll be saying these things.
+   
+   Now I want to accelerate because I don't want to slowly deconstruct all this stuff for hours. So let's talk about null 
+   briefly. In a dynamic language null lives within that specifically undefined space. The place where a tuple lives. If we 
+   wrote all those tests, we'd have just so many tests that usually didn't provide any value show we just live with the 
+   uncertainty and of course the way that manifests as anyone who has built a large system into a dynamic language knows is 
+   that one function generates a null and then it propagates and propagates and propagates and propagates through function 
+   calls and then eventually someone tries to add 4 to it or something and you get an exception and the exception occurs far 
+   away from the source of the null and the source of the null is no longer in the trace-back. So there's very little useful 
+   debugging information present. Of course in a static language this problem goes away because null is part of that 
+   impossible place, there is no such thing as null, so we don't have to think about it.
+   
+   And the reaction when people encounter this idea for the first time, some of them say, but I need null to program. Well, 
+   that's what they say. I need null. People say this now, in fact this was motivated by a Hacker News thread when I was 
+   preparing this talk. This is a thing that I actually saw someone say when I was working on this talk. And this only makes 
+   sense that you believe that null is the only way to represent absence, because what you really need to do is represent 
+   nothingness or the absence of a value. But if you only know one way to do it, then you sort of make this leap and say, well 
+   that must be the only way, null must be the only way.
+   
+   But you won't get them to say the bottom thing, right, because if they even realized that they believed that, they could 
+   have asked the static language programmer is that actually true, how do you represent nothingness. But they just said 
+   programming in that language is impossible, that language you use, which is a very silly thing to say.
+   
    [laughter]
-   Going back further in time if we go about five years I think it was very common for people to believe that functional programming is inherently slow, not just I used language X and wrote some slowed code but that functional program is in a universal sense slow.
-   And this really mostly comes down to data structures. If you are thinking of naive implementation of arrays and lists, then functional programming is slow. Because every time you -- you have to copy everything over and it's very slow. But if you have persistent data types, like Clojure does, for example, then this isn't a problem so in order to say that FP is slow, you have to believe, maybe without realizing it that no faster mutable types exist but for persistent data types date back to at least 96. So this was false long before the person ever said this. The top thing is false that is, long before they ever said it. Because the bottom thing is false. Going back further to 2000, this was one of my favorite things to argue about when I was just starting college at this time, that garbage collection is never going to be practical for real-world software. I loved arguing about that. I believed that it was true by the way, not the other way, I had the wrong belief.
-   And much like the functional programming thing, this only makes sense if there are no better GC algorithms coming. Now, in 2000, my context for garbage collection was the JVM and this was just before it got much better garb, so I was thinking about the one second GC pause. But what I failed to realize that that those massive GC improvements were coming and they were based on work for the 80s and in many cases the 70s, so before I was alive, I was already wrong about this and I just needed to be a college student who liked arguing about of it really came out.
-   So I'm going to stop going through individual examples right now. I think the pattern is clear. You say the top thing, it only makes sense if the bottom thing is true, so in a sense you believe the bottom thing. It's structuring your your understanding of the world, but you don't realize it. If we kind of group these up, the belief that no faster immutable types exist, and the belief that no faster GC mutable types exist and the belief that only null can represent absence, these are all kind of the same belief. This is the belief that I saw something with property X, therefore the category of things has property X. I saw slow fung functional code, therefore, functional code will always be slow, etc. These are actually quite easily to dispel. When someone believes theses things you just tell them of the existence of the alternative and some people will be stubborn and claim that that alternative doesn't exist or something. But for the most part people will believe you and the belief goes away.
-   The correctness comes exclusively from categories and correctness comes exclusively forever examples, I can find myself believing both of these today depending on what I'm doing. If I'm programming in O cam L, I stop thinking about exceptions to the types that I am creating and in a dynamic language, I write the 0, 1, many, a lot test and then I sort of don't think about, are there members of the category I just established that should not be there?
+   
+   Going back further in time if we go about five years I think it was very common for people to believe that functional 
+   programming is inherently slow, not just I used language X and wrote some slowed code but that functional program is in a 
+   universal sense slow.
+   
+   And this really mostly comes down to data structures. If you are thinking of naive implementation of arrays and lists, then 
+   functional programming is slow. Because every time you -- you have to copy everything over and it's very slow. But if you 
+   have persistent data types, like Clojure does, for example, then this isn't a problem so in order to say that FP is slow, 
+   you have to believe, maybe without realizing it that no faster mutable types exist but for persistent data types date back 
+   to at least 96. So this was false long before the person ever said this. The top thing is false that is, long before they 
+   ever said it. Because the bottom thing is false. Going back further to 2000, this was one of my favorite things to argue 
+   about when I was just starting college at this time, that garbage collection is never going to be practical for real-world 
+   software. I loved arguing about that. I believed that it was true by the way, not the other way, I had the wrong belief.
+   
+   And much like the functional programming thing, this only makes sense if there are no better GC algorithms coming. Now, in 
+   2000, my context for garbage collection was the JVM and this was just before it got much better garb, so I was thinking 
+   about the one second GC pause. But what I failed to realize that that those massive GC improvements were coming and they 
+   were based on work for the 80s and in many cases the 70s, so before I was alive, I was already wrong about this and I just 
+   needed to be a college student who liked arguing about of it really came out.
+   
+   So I'm going to stop going through individual examples right now. I think the pattern is clear. You say the top thing, it 
+   only makes sense if the bottom thing is true, so in a sense you believe the bottom thing. It's structuring your your 
+   understanding of the world, but you don't realize it. If we kind of group these up, the belief that no faster immutable 
+   types exist, and the belief that no faster GC mutable types exist and the belief that only null can represent absence, 
+   these are all kind of the same belief. This is the belief that I saw something with property X, therefore the category of 
+   things has property X. I saw slow fung functional code, therefore, functional code will always be slow, etc. These are 
+   actually quite easily to dispel. When someone believes theses things you just tell them of the existence of the alternative 
+   and some people will be stubborn and claim that that alternative doesn't exist or something. But for the most part people 
+   will believe you and the belief goes away.
+   
+   The correctness comes exclusively from categories and correctness comes exclusively forever examples, I can find myself 
+   believing both of these today depending on what I'm doing. If I'm programming in O cam L, I stop thinking about exceptions 
+   to the types that I am creating and in a dynamic language, I write the 0, 1, many, a lot test and then I sort of don't 
+   think about, are there members of the category I just established that should not be there?
+   
    >> Right, did I fail to actually define the category?
-   And I don't know how to stop doing this, but I think realizing it is important, mostly because it will make you pa better programmer but also because it will make you stop writing angry hacker news comments. It's important to note that imposter syndrome is also in this category. Even when you know you have this belief it still functions, it still governs the way you think of yourself in this case as opposed to understanding software.
-   So this bottom category is the one that's scary. The top one is just sort of an inconvenience. And if you could turn ideology about technical topics into sort of a substance, like a fluid and pour it into a vessel of some kind, I think that vessel would be Hacker News, whether we're talking about type systems or tests, dynamic or static, whether we're talking about the meritocracy or the market, if you just read any Hacker News thread that it has a lot of comments and is a contentious topic you can find people where you see the things they believe but don't realize they believe. It's just staring you in the face and that makes it sound like maybe ideology is universally bad but the first time I gave this talk I think I gave that impression, so I'll had just note one bit of ideology that is very nice to have is that the belief that hurting people is bad. You don't have to consciously stop every time this comes up and think, is hurting people bad? It just kind of works even when you don't consciously think about it. It's not that the world of structuring beliefs are bad, it's just that it's powerful and they lead us to treat each other badly and also making bad technical decisions. So that is ideology. My name is Gary Bernhardt. I feel compelled to read the slide every time. If you're interested in this idea of ideology and it is not familiar to you, this has been a very vulgar introduction to it in the sense that I don't really know what I'm talking about in cultural or theoretical things, but theres' a film called the pervert's guide tittediology and I will not tell you that you will agree with every single thing in it but I will tell you that you will at the very absolutely be entertained and enter do be put off by the word pervert in the title. If you're interested in static type systems and they are not familiar to you and this sort of section made you realize that you have not fully understood what they are, there is a wonderful course from Dan Grossman who's a professor at the university of Washington, CSE341, it's a languages course but the entire first half is in SML and is very approachable. The second half of the course is also fantastic. Everyone in this room can take this course and understand why static types are a big deal and finally as for myself I've been working on a book that is an attempt to take all the sort of major interesting topics in computer science in like an undergraduate degree squish them into a book removing all the mathematical rigor to try to give an introduction to these things to people who are programmers about you don't have a formal background so if that's interesting, you can get an e-mail when it finally is available. With that, I thank you all very much for coming :
+   
+   And I don't know how to stop doing this, but I think realizing it is important, mostly because it will make you pa better 
+   programmer but also because it will make you stop writing angry hacker news comments. It's important to note that imposter 
+   syndrome is also in this category. Even when you know you have this belief it still functions, it still governs the way you 
+   think of yourself in this case as opposed to understanding software.
+   
+   So this bottom category is the one that's scary. The top one is just sort of an inconvenience. And if you could turn 
+   ideology about technical topics into sort of a substance, like a fluid and pour it into a vessel of some kind, I think that 
+   vessel would be Hacker News, whether we're talking about type systems or tests, dynamic or static, whether we're talking 
+   about the meritocracy or the market, if you just read any Hacker News thread that it has a lot of comments and is a 
+   contentious topic you can find people where you see the things they believe but don't realize they believe. It's just 
+   staring you in the face and that makes it sound like maybe ideology is universally bad but the first time I gave this talk 
+   I think I gave that impression, so I'll had just note one bit of ideology that is very nice to have is that the belief that 
+   hurting people is bad. You don't have to consciously stop every time this comes up and think, is hurting people bad? It 
+   just kind of works even when you don't consciously think about it. It's not that the world of structuring beliefs are bad, 
+   it's just that it's powerful and they lead us to treat each other badly and also making bad technical decisions. So that is 
+   ideology. My name is Gary Bernhardt. I feel compelled to read the slide every time. If you're interested in this idea of 
+   ideology and it is not familiar to you, this has been a very vulgar introduction to it in the sense that I don't really 
+   know what I'm talking about in cultural or theoretical things, but theres' a film called the pervert's guide tittediology 
+   and I will not tell you that you will agree with every single thing in it but I will tell you that you will at the very 
+   absolutely be entertained and enter do be put off by the word pervert in the title. If you're interested in static type 
+   systems and they are not familiar to you and this sort of section made you realize that you have not fully understood what 
+   they are, there is a wonderful course from Dan Grossman who's a professor at the university of Washington, CSE341, it's a 
+   languages course but the entire first half is in SML and is very approachable. The second half of the course is also 
+   fantastic. Everyone in this room can take this course and understand why static types are a big deal and finally as for 
+   myself I've been working on a book that is an attempt to take all the sort of major interesting topics in computer science 
+   in like an undergraduate degree squish them into a book removing all the mathematical rigor to try to give an introduction 
+   to these things to people who are programmers about you don't have a formal background so if that's interesting, you can 
+   get an e-mail when it finally is available. With that, I thank you all very much for coming :
+   
    [applause]
-   I assume that we have time. Yeah. As usual, I have no idea what questions could possibly look like for this talk, but I welcome attempts. If there are any. Yeah? I can't really see well. I see a hand.
-   >>
-   AUDIENCE MEMBER:  You talk a lot about ideology and recognizing something as an ideology, but once you have that information what do you with that?
-   >> What do you do once you see ideology in your own thoughts? Someone who's watched the pervert's guide to ideology, but in some -- so in if we think about like the functional programming one, right, the belief that functional programming is inherently slow, once you think the underlying belief, the thing you said no longer makes sense. It just kind of goes away. The harder ones, I struggle with it, I struggle with trying to get myself to think in terms of both categories and examples when I'm building software, right? Especially in dynamic languages it's very hard to think about categories because there's no system in there but just knowing that I make that mistake causes me to pause and think about it. So I don't think there's really a process. Just trying to -- it's really just trying to engage in metacognition if we make it abstract just trying to think about your own thoughts is obviously always a good thing. I mean sometimes it will make you sad. What time is it? Yeah, we still have plenty of time. If there's more, I can't see well so you might have to shake your hand around a lot.
-   AUDIENCE MEMBER:  So you mentioned earlier that a lot of type systems don't have -- but I can think of some that do, like incredibly popular java, for example, but it seemed electrically like in your perspective those are synonymous. A good system doesn't have node. How do you square those two?
-   >> I'm trying to restate. How do I square the existence of don't have node with my implication that those systems are not static or that staticness requires node. it's not that I'm -- I mean Java is a statically typed language but it's a different kind of language, right, it's a much weaker type system and I think actually the existence of null is probably the best indicator of you can get as to whether a type system is any good or not.
+   
+   I assume that we have time. Yeah. As usual, I have no idea what questions could possibly look like for this talk, but I 
+   welcome attempts. If there are any. Yeah? I can't really see well. I see a hand.
+   
+   >> AUDIENCE MEMBER:  You talk a lot about ideology and recognizing something as an ideology, but once you have that 
+   information what do you with that?
+   
+   >> What do you do once you see ideology in your own thoughts? Someone who's watched the pervert's guide to ideology, but in 
+   some -- so in if we think about like the functional programming one, right, the belief that functional programming is 
+   inherently slow, once you think the underlying belief, the thing you said no longer makes sense. It just kind of goes away. 
+   The harder ones, I struggle with it, I struggle with trying to get myself to think in terms of both categories and examples 
+   when I'm building software, right? Especially in dynamic languages it's very hard to think about categories because there's 
+   no system in there but just knowing that I make that mistake causes me to pause and think about it. So I don't think 
+   there's really a process. Just trying to -- it's really just trying to engage in metacognition if we make it abstract just 
+   trying to think about your own thoughts is obviously always a good thing. I mean sometimes it will make you sad. What time 
+   is it? Yeah, we still have plenty of time. If there's more, I can't see well so you might have to shake your hand around a 
+   lot.
+   
+   AUDIENCE MEMBER:  So you mentioned earlier that a lot of type systems don't have -- but I can think of some that do, like 
+   incredibly popular java, for example, but it seemed electrically like in your perspective those are synonymous. A good 
+   system doesn't have node. How do you square those two?
+   
+   >> I'm trying to restate. How do I square the existence of don't have node with my implication that those systems are not 
+   static or that staticness requires node. it's not that I'm -- I mean Java is a statically typed language but it's a 
+   different kind of language, right, it's a much weaker type system and I think actually the existence of null is probably 
+   the best indicator of you can get as to whether a type system is any good or not.
+   
    [applause]
-   A, this is the right crowd for this for sure. If I said that at RubyConf, they'd say hm? That sounded mean. I didn't mean that to be mean. Let's do one more.
-   AUDIENCE MEMBER:  
-   Ideology about how you you know, you have the categories and like they give you some structure but then you would say once you're in your function am I able to answer this question, so what if the number is negative, what if it's basically the right category, but still: So what about you know, a search and just checking that telling whoever called you about it can't answer.
-   >> Right, in the case of whether we had negative color components, about what assertions? I mean assertions are you, well, OK, the dismissive way to say it is assertions are you reinventing a type system badly but the less judgmental and practical way of saying it is you filling in holes in a type system. Right? Things that a type system cannot express. I mean, that will certainly fill in those holes to some extent, but the problem is, that you also need evidence that the assertion was written correctly, right? Because if you -- I mean in this case it's simple but a complex assertion, you're sort of devolving into a situation where you even need to test to know that the assertion is right.  Because there's no test about the assuring that the assertion is right and I'm one inch away from showing how ignorant I am of formal type systems. But I think it's another example of the same thing. Like I would put an assertion in the test bucket, no the in the type system bucket. That's probably a much briefer answer. I'm going to stop holding you hostage. Thank you all very much.
+   
+   A, this is the right crowd for this for sure. If I said that at RubyConf, they'd say hm? That sounded mean. I didn't mean 
+   that to be mean. Let's do one more.
+   
+   AUDIENCE MEMBER:  Ideology about how you you know, you have the categories and like they give you some structure but then 
+   you would say once you're in your function am I able to answer this question, so what if the number is negative, what if 
+   it's basically the right category, but still: So what about you know, a search and just checking that telling whoever 
+   called you about it can't answer.
+   
+   >> Right, in the case of whether we had negative color components, about what assertions? I mean assertions are you, well, 
+   OK, the dismissive way to say it is assertions are you reinventing a type system badly but the less judgmental and 
+   practical way of saying it is you filling in holes in a type system. Right? Things that a type system cannot express. I 
+   mean, that will certainly fill in those holes to some extent, but the problem is, that you also need evidence that the 
+   assertion was written correctly, right? Because if you -- I mean in this case it's simple but a complex assertion, you're 
+   sort of devolving into a situation where you even need to test to know that the assertion is right.  Because there's no 
+   test about the assuring that the assertion is right and I'm one inch away from showing how ignorant I am of formal type 
+   systems. But I think it's another example of the same thing. Like I would put an assertion in the test bucket, no the in 
+   the type system bucket. That's probably a much briefer answer. I'm going to stop holding you hostage. Thank you all very 
+   much.
+   
    [applause]
